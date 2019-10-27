@@ -23,12 +23,17 @@
     <main>
       <input id="login" oninput="testLogin()" placeholder="login">
       <form id="form">
+        <p>Name</p>
         <input id="userName" name="name" onchange="validateName()" placeholder="Name">
+        <p>Age</p>
         <input type="number"
                id="userAge" 
                name="age"
                placeholder="Age"
                onchange="validateAge()">
+        <p>
+          Your Photo
+        </p>
         <input type="file" 
                id="avatar" 
                name="avatar" 
