@@ -3,7 +3,16 @@ const path = require ( "path" );
 const app = express();
 const fs = require('fs');
 
-const assets = require('./assets')
+const async = require ( 'async' );
+const Promise = require("promise");
+const FormData = require('form-data');
+const formidable = require('formidable');
+const bodyParser = require('body-parser');
+
+const writeDB = require( "./routes/writeDB" );
+const getError = require ( "/routes/getError" );
+
+const assets = require('./assets');
 
 // app.use(express.static("public"));
 // app.use ( function (req, res, next )  {
@@ -24,7 +33,7 @@ app.get("/", function(request, response) {
 
 [ "post", "put", "patch", "delete" ].map(
   method => app[method] ( "/form/:id", async function ( req, res ) {
-    var form = new formidable.IncomingForm({
+    let form = new formidable.IncomingForm({
         uploadDir: __dirname + '/uploads',
         keepExtensions: true,
         keepFilenames: true
