@@ -17,15 +17,18 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-[ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ].forEach (
+[ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ]
+  .forEach (
     item => app.get ( item, function ( req, res ) {
       console.log ( "request params: ", req.params );
       console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
       // res.sendFile( path.join( path.resolve ( "." ), `52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}` ));
-      let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}`
-      res.sendFile( filePath );
-    })
-);
+      // let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}`
+      fs.readFile ( `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}`, 'utf8', function( err, content ) {
+          console.log( content );
+      });
+      res.send( content );
+  });
 
 app.get( "/uploads/large.txt", function ( req, res ) {
   const file = new fs.ReadStream('./uploads/large.txt');
