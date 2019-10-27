@@ -1,8 +1,9 @@
 const express = require("express");
+const path = require ( "path" );
 const app = express();
 const fs = require('fs');
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 // app.use ( function (req, res, next )  {
 //   console.log ( "request params: ", req.params );
 //   console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
@@ -20,7 +21,9 @@ app.get("/", function(request, response) {
     item => app.get ( item, function ( req, res ) {
       console.log ( "request params: ", req.params );
       console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
-      res.sendFile( "https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F" + req.params.imageName );
+      // res.sendFile( path.join( path.resolve ( "." ), `52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}` ));
+      let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}`
+      res.sendFile( filePath );
     })
 );
 
