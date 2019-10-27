@@ -65,24 +65,24 @@ app.get ( "/forms/:id", async function ( req, res ) {
 
     let { dbpath, dbcontent } = await readDB ( req, res );
     if ( !dbcontent [ req.params.id ] ) return res.json ( getError ( 404 ) );
+    console.log ( dbcontent [ req.params.id ] );
 
     let form = new FormData();
     for ( let prop in dbcontent [ req.params.id ] ) {
-        if ( prop.path ) {
-          form.append('file', stdout, {
-              // filename: 'unicycle.jpg', // ... or:
-              filepath: `${__dirname}/uploads/${req.params.file}`,
-              contentType: 'image/jpeg',
-              knownLength: 19806
-          });
+        if ( dbcontent [ req.params.id ][ prop ].path ) {
+          form.
         }
-
+        //   form.append( 'file', {
+        //       // filename: 'unicycle.jpg', // ... or:
+        //       filepath: dbcontent [ req.params.id ][ prop ].path,
+        //       contentType: dbcontent [ req.params.id ][ prop ].type,
+        //       knownLength: dbcontent [ req.params.id ][ prop ].size
+        //   });
+        // }
+        form.append( prop, dbcontent [ req.params.id ][ prop ] );
     }
-    form.append( 'my_field', 'my value' );
-
-
-    // return res.json ( dbcontent [ req.params.id ] );
-    res.setHeader( 'Content-Type', 'multipart/form-data' );
+    
+    res.setHeader( 'Content-Type', 'multipart/form-data; boundary=' + form.getBoundary() );
     return res.send( form );
 });
 
