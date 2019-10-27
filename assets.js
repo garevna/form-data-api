@@ -10,8 +10,8 @@ var assets = rows.map((row) => {
   } catch (e) {}
 });
 
-assets = assets.filter( asset => asset );
-console.log ( assets.map ( asset => asset.name ) );
+assets = assets.filter( asset => asset && asset.name );
+console.log ( assets.map ( asset => [ asset.name, asset.url ] ) );
 
 router.use( ( request, response ) => {
   response.header( "Access-Control-Allow-Origin", "*" );
@@ -20,15 +20,15 @@ router.use( ( request, response ) => {
   
   var path = request.path.substring(1);
   
-  var [ matching ] = assets.filter( asset => {
+  var [ file ] = assets.filter( asset => {
     if ( asset.name ) return asset.name.replace(/ /g,'%20') === path
   })
   
-  if ( !matching || !matching.url ) {
+  if ( !file || !file.url ) {
     return response.status(404).end("No such file")
   }
   
-  return response.redirect( matching.url );
+  return response.redirect( file.url );
 })
 
 module.exports = router
