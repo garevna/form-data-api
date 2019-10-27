@@ -16,31 +16,72 @@ const assets = require('./assets')
 // })
 
 app.use( "/assets", assets );
+// app.use ( "", );
 
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// [ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ]
-//   .forEach (
-//     item => app.get ( item, function ( req, res ) {
-//       console.log ( "request params: ", req.params );
-//       console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
-//       // res.sendFile( path.join( path.resolve ( "." ), `52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}` ));
-//       // let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956/${req.params.imageName}`
-// //       https://cdn.glitch.com/c54bf865-364f-4c70-a071-e24900743fd0/a-level-ico.png
-//       fs.readFile (
-//           `/assets/${req.params.imageName}`,
-//           // "https://garevna-streams.glitch.me/assets/js-8.png",
-//           'utf8',
-//           function( err, content ) {
-//             if ( err ) return console.log ( err );
-//             console.log( content );
-//             res.send( content );
-//           }
-//       );
-//     })
-//   );
+[ "post", "put", "patch", "delete" ].map(
+  method => app[method] ( "/form/:id", async function ( req, res ) {
+    var form = new formidable.IncomingForm({
+        uploadDir: __dirname + '/uploads',
+        keepExtensions: true,
+        keepFilenames: true
+    });
+
+    let { dbpath, dbcontent } = await readDB ( req, res );
+    console.log ( "DB content:\n", dbcontent );
+    // if ( !dbcontent ) { console.log ( "Empty " ); return };
+
+    form.parse( req, function ( err, fields, files ) {
+      let result = {};
+      if ( err ) {
+        console.log ( "Error: ", err.stack );
+        return res.json ({ error: 500, message: err.stack });
+      }
+      console.log ( "Request fields:\n", fields );
+      Object.assign ( result, fields );
+      for ( let file in files ) {
+        // if ( files[file].type.indexOf ( "image" ) === -1 ) {
+        //     fs.unlink( files[file].path, function(err) {
+        //         if( err ) console.log( 'Error deleting file: ', err );
+        //         else console.log( 'file deleted successfully' );
+        //     });
+        //     return res.json ({ error: 415, message: `Invalid file type ${files[file].name}. Only images are available` });
+        // };
+        // if ( files[file].size > 307200 ) {
+        //   fs.unlink( files[file].path, function(err) {
+        //       if( err ) return console.log( 'Error deleting file: ', err );
+        //       else console.log( 'file deleted successfully' );
+        //   });
+        //   return res.json ({ error: 413, message: `File ${files[file].name} is too large. Max available size 300Kb` })
+        // }
+        Object.assign ( result, {
+          [file]: {
+            path: files[file].path,
+            name: files[file].name,
+            size: files[file].size,
+            type: files[file].type
+          }
+        });
+        let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
+        console.log ( "DB path: ", dbpath );
+        saveForm ( req, res, dbpath, dbcontent, result );
+        // console.log ( file );
+        // console.log ( "path: ", files[file].path );
+        // console.log ( "name: ", files[file].name );
+        // console.log ( "size: ", files[file].size );
+        // console.log ( "type: ", files[file].type );
+      }
+      // console.log ( "Request files:\n", files );
+      // res.json({ status: "ok", message: result });
+    });
+    // form.on( 'field', function ( name, val ) {
+    //   console.log ( "field name: ", name, "field val:", val );
+    // });
+  })
+);
 
 app.get( "/uploads/large.txt", function ( req, res ) {
   const file = new fs.ReadStream('./uploads/large.txt');
