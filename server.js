@@ -55,11 +55,11 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// app.get ( "/forms/all", async function ( req, res ) {
-//     console.log ( "Forms all" );
-//     let { dbpath, dbcontent } = await readDB ( req, res );
-//     res.json ( dbcontent );
-// });
+app.get ( "/forms/all", async function ( req, res ) {
+    console.log ( "Forms all" );
+    let { dbpath, dbcontent } = await readDB ( req, res );
+    res.json ( dbcontent );
+});
 
 app.get ( "/forms/:id", async function ( req, res ) {
 
@@ -68,17 +68,15 @@ app.get ( "/forms/:id", async function ( req, res ) {
 
     let form = new FormData();
     for ( let prop in dbcontent [ req.params.id ] ) {
-        console.log ( dbcontent [ req.params.id ][ prop ] );
         if ( prop.path ) {
-          form.append( 'file', {
+          form.append('file', stdout, {
               // filename: 'unicycle.jpg', // ... or:
-              filepath: dbcontent [ req.params.id ][ prop ].path,
-              contentType: dbcontent [ req.params.id ][ prop ].type,
-              knownLength: dbcontent [ req.params.id ][ prop ].size
+              filepath: `${__dirname}/uploads/${req.params.file}`,
+              contentType: 'image/jpeg',
+              knownLength: 19806
           });
-        } else {
-          form.append ( prop, dbcontent [ req.params.id ][ prop ] )
         }
+
     }
     form.append( 'my_field', 'my value' );
 
@@ -88,10 +86,10 @@ app.get ( "/forms/:id", async function ( req, res ) {
     return res.send( form );
 });
 
-// app.get ( "/uploads/:file", function ( req, res ) {
-//   const file = `${__dirname}/uploads/${req.params.file}`;
-//   return res.download( file );
-// });
+app.get ( "/uploads/:file", function ( req, res ) {
+  const file = `${__dirname}/uploads/${req.params.file}`;
+  return res.download( file );
+});
 
 [ "post", "put", "patch", "delete" ].map(
   method => app[method] ( "/form/:id", async function ( req, res ) {
@@ -111,7 +109,6 @@ app.get ( "/forms/:id", async function ( req, res ) {
         console.log ( "Error: ", err.stack );
         return res.json ({ error: 500, message: err.stack });
       }
-      // console.log ( "Request fields:\n", fields );
       Object.assign ( result, fields );
       for ( let file in files ) {
         if ( files[file].type.indexOf ( "image" ) === -1 ) {
@@ -139,20 +136,15 @@ app.get ( "/forms/:id", async function ( req, res ) {
         let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
         console.log ( "DB path: ", dbpath );
         error = saveForm ( req, res, dbpath, dbcontent, result );
-        console.log ( "Server.js: writing DB result is ", error );
+        // console.log ( "Server.js: writing DB result is ", error );
         if ( error ) break;
-        console.log ( file );
+        // console.log ( file );
         console.log ( "path: ", files[file].path );
         console.log ( "name: ", files[file].name );
         console.log ( "size: ", files[file].size );
         console.log ( "type: ", files[file].type );
       }
-      // console.log ( "Request files:\n", files );
-      // if ( !error ) return res.json({ status: "ok", message: result });
     });
-    // form.on( 'field', function ( name, val ) {
-    //   console.log ( "field name: ", name, "field val:", val );
-    // });
   })
 );
 
@@ -173,6 +165,8 @@ app.get ( "/forms/:id", async function ( req, res ) {
 //     res.on('close', () => file.destroy() )
 // })
 
-// const listener = app.listen(process.env.PORT, function() {
-//   console.log("Your app is listening on port " + listener.address().port);
-// });
+// =============================================================================
+
+const listener = app.listen(process.env.PORT, function() {
+  console.log("Your app is listening on port " + listener.address().port);
+});
