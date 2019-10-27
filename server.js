@@ -16,7 +16,7 @@ const getError = require ( "./routes/getError" );
 
 const assets = require('./assets');
 
-// app.use(express.static("public"));
+app.use(express.static("public"));
 // app.use ( function (req, res, next )  {
 //   console.log ( "request params: ", req.params );
 //   console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
