@@ -11,14 +11,16 @@ app.get("/", function(request, response) {
 app.get( "/uploads/large.txt", function ( req, res ) {
   const file = new fs.ReadStream('./uploads/large.txt');
   file.pipe(res);
+  let data = file.read();
+  console.log ( data );
   file.on('error', function(err){
         res.statusCode = 500;
         res.end("Server Error");
         console.error(err);
   });
   file
-    .on( 'open', () => console.log("open") )
-    .on( 'close', () => res.send("End of file") )
+    .on( 'open', () => console.log ("open") )
+    .on( 'close', () => console.log ("End of file") )
  
     res.on('close', () => file.destroy() )
 })
