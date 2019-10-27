@@ -9,7 +9,7 @@ app.get("/", function(request, response) {
 });
 
 app.get( "/uploads/large.txt", function ( req, res ) {
-  const file = new fs.ReadStream('/uploads/large.txt');
+  const file = new fs.ReadStream('./uploads/large.txt');
   file.pipe(res);
   file.on('error', function(err){
         res.statusCode = 500;
@@ -18,7 +18,7 @@ app.get( "/uploads/large.txt", function ( req, res ) {
   });
   file
     .on( 'open', () => console.log("open") )
-    .on( 'close', () => console.log("close") )
+    .on( 'close', () => res.send("End of file") )
  
     res.on('close', () => file.destroy() )
 })
