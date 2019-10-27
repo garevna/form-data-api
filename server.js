@@ -30,9 +30,9 @@ app.get("/", function(request, response) {
           function( err, content ) {
             if ( err ) return console.log ( err );
             console.log( content );
+            res.send( content );
           }
       );
-      res.send( content );
     })
   );
 
