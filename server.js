@@ -21,26 +21,26 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-[ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ]
-  .forEach (
-    item => app.get ( item, function ( req, res ) {
-      console.log ( "request params: ", req.params );
-      console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
-      // res.sendFile( path.join( path.resolve ( "." ), `52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}` ));
-      // let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956/${req.params.imageName}`
-//       https://cdn.glitch.com/c54bf865-364f-4c70-a071-e24900743fd0/a-level-ico.png
-      fs.readFile (
-          `./52ccd94a-ef5a-4ac4-b91a-4b8fa19be956/${req.params.imageName}`,
-          // "https://garevna-streams.glitch.me/assets/js-8.png",
-          'utf8',
-          function( err, content ) {
-            if ( err ) return console.log ( err );
-            console.log( content );
-            res.send( content );
-          }
-      );
-    })
-  );
+// [ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ]
+//   .forEach (
+//     item => app.get ( item, function ( req, res ) {
+//       console.log ( "request params: ", req.params );
+//       console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
+//       // res.sendFile( path.join( path.resolve ( "." ), `52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F${req.params.imageName}` ));
+//       // let filePath = `https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956/${req.params.imageName}`
+// //       https://cdn.glitch.com/c54bf865-364f-4c70-a071-e24900743fd0/a-level-ico.png
+//       fs.readFile (
+//           `/assets/${req.params.imageName}`,
+//           // "https://garevna-streams.glitch.me/assets/js-8.png",
+//           'utf8',
+//           function( err, content ) {
+//             if ( err ) return console.log ( err );
+//             console.log( content );
+//             res.send( content );
+//           }
+//       );
+//     })
+//   );
 
 app.get( "/uploads/large.txt", function ( req, res ) {
   const file = new fs.ReadStream('./uploads/large.txt');
