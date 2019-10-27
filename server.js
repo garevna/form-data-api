@@ -29,13 +29,13 @@ const assets = require('./assets');
 app.use( "/assets", assets );
 // app.use ( "", );
 
-app.options( "/*", function (req, res, next ) {
-  console.log ( "Pre flight request" );
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,HEADERS,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  res.sendStatus(200);
-});
+// app.options( "/*", function (req, res, next ) {
+//   console.log ( "Pre flight request" );
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,HEADERS,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+//   res.sendStatus(200);
+// });
 
 // app.use( function(req, res, next) {
 //   console.log ( req.originalUrl );
@@ -55,11 +55,11 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-app.get ( "/forms/all", async function ( req, res ) {
-    console.log ( "Forms all" );
-    let { dbpath, dbcontent } = await readDB ( req, res );
-    res.json ( dbcontent );
-});
+// app.get ( "/forms/all", async function ( req, res ) {
+//     console.log ( "Forms all" );
+//     let { dbpath, dbcontent } = await readDB ( req, res );
+//     res.json ( dbcontent );
+// });
 
 app.get ( "/forms/:id", async function ( req, res ) {
 
