@@ -27,6 +27,7 @@ router.use( ( request, response ) => {
   if ( !file || !file.url ) {
     return response.status(404).end("No such file")
   }
+  console.log ( file.url );
   
   return response.redirect( file.url );
 })

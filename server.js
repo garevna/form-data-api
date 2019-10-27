@@ -9,8 +9,10 @@ const FormData = require('form-data');
 const formidable = require('formidable');
 const bodyParser = require('body-parser');
 
+const readDB = require( "./routes/readDB" );
 const writeDB = require( "./routes/writeDB" );
-const getError = require ( "/routes/getError" );
+const saveForm = require( "./routes/saveForm" );
+const getError = require ( "./routes/getError" );
 
 const assets = require('./assets');
 
