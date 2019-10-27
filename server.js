@@ -46,7 +46,7 @@ app.get("/", function(request, response) {
     let { dbpath, dbcontent } = await readDB ( req, res );
     console.log ( "DB content:\n", dbcontent );
     // if ( !dbcontent ) { console.log ( "Empty " ); return };
-
+    let error = null;
     form.parse( req, function ( err, fields, files ) {
       let result = {};
       if ( err ) {
@@ -80,7 +80,9 @@ app.get("/", function(request, response) {
         });
         let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
         console.log ( "DB path: ", dbpath );
-        saveForm ( req, res, dbpath, dbcontent, result );
+        error = saveForm ( req, res, dbpath, dbcontent, result );
+        console.log ( "Server.js: writing DB result is ", error );
+        if ( error ) break;
         console.log ( file );
         console.log ( "path: ", files[file].path );
         console.log ( "name: ", files[file].name );
@@ -88,7 +90,7 @@ app.get("/", function(request, response) {
         console.log ( "type: ", files[file].type );
       }
       // console.log ( "Request files:\n", files );
-      return res.json({ status: "ok", message: result });
+      // if ( !error ) return res.json({ status: "ok", message: result });
     });
     // form.on( 'field', function ( name, val ) {
     //   console.log ( "field name: ", name, "field val:", val );

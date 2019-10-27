@@ -8,7 +8,7 @@ const writeDB = function ( dbpath, dbcontent ) {
         JSON.stringify( dbcontent ),
         err => err ? error = getError ( 520 ) : null
     );
-    return error || "OK";
+    return error || null;
 }
 
 module.exports = writeDB;
