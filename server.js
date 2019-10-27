@@ -53,23 +53,23 @@ app.get("/", function(request, response) {
         console.log ( "Error: ", err.stack );
         return res.json ({ error: 500, message: err.stack });
       }
-      console.log ( "Request fields:\n", fields );
+      // console.log ( "Request fields:\n", fields );
       Object.assign ( result, fields );
       for ( let file in files ) {
-        if ( files[file].type.indexOf ( "image" ) === -1 ) {
-            fs.unlink( files[file].path, function(err) {
-                if( err ) console.log( 'Error deleting file: ', err );
-                else console.log( 'file deleted successfully' );
-            });
-            return res.json ({ error: 415, message: `Invalid file type ${files[file].name}. Only images are available` });
-        };
-        if ( files[file].size > 307200 ) {
-          fs.unlink( files[file].path, function(err) {
-              if( err ) return console.log( 'Error deleting file: ', err );
-              else console.log( 'file deleted successfully' );
-          });
-          return res.json ({ error: 413, message: `File ${files[file].name} is too large. Max available size 300Kb` })
-        }
+        // if ( files[file].type.indexOf ( "image" ) === -1 ) {
+        //     fs.unlink( files[file].path, function(err) {
+        //         if( err ) console.log( 'Error deleting file: ', err );
+        //         else console.log( 'file deleted successfully' );
+        //     });
+        //     return res.json ({ error: 415, message: `Invalid file type ${files[file].name}. Only images are available` });
+        // };
+        // if ( files[file].size > 307200 ) {
+        //   fs.unlink( files[file].path, function(err) {
+        //       if( err ) return console.log( 'Error deleting file: ', err );
+        //       else console.log( 'file deleted successfully' );
+        //   });
+        //   return res.json ({ error: 413, message: `File ${files[file].name} is too large. Max available size 300Kb` })
+        // }
         Object.assign ( result, {
           [file]: {
             path: files[file].path,
@@ -86,10 +86,9 @@ app.get("/", function(request, response) {
         console.log ( "name: ", files[file].name );
         console.log ( "size: ", files[file].size );
         console.log ( "type: ", files[file].type );
-        console.log ( "url: ", files[file].url );
       }
       console.log ( "Request files:\n", files );
-      res.json({ status: "ok", message: result });
+      return res.json({ status: "ok", message: result });
     });
     // form.on( 'field', function ( name, val ) {
     //   console.log ( "field name: ", name, "field val:", val );

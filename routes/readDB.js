@@ -12,12 +12,12 @@ function readDB ( req, res ) {
 
       if ( req.originalUrl.indexOf ( "form" ) !== -1 ) {
           dbname = "db";
-          dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
+          dbpath = path.join ( path.resolve( "./" ), `forms/db.json` );
       } else {
           dbname = dbnames.filter (
             item => req.originalUrl.indexOf ( item.slice(0,-1) ) >= 0
           )[0];
-          dbpath = path.join ( path.resolve( "." ), `json/${dbname}.json` );
+          dbpath = path.join ( path.resolve( "./" ), `json/${dbname}.json` );
       };
 
       console.log ( "readDB: path = ", dbpath );

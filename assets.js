@@ -11,7 +11,7 @@ var assets = rows.map((row) => {
 });
 
 assets = assets.filter( asset => asset && asset.name );
-console.log ( assets.map ( asset => [ asset.name, asset.url ] ) );
+// console.log ( assets.map ( asset => [ asset.name, asset.url ] ) );
 
 router.use( ( request, response ) => {
   response.header( "Access-Control-Allow-Origin", "*" );
@@ -27,7 +27,7 @@ router.use( ( request, response ) => {
   if ( !file || !file.url ) {
     return response.status(404).end("No such file")
   }
-  console.log ( file.url );
+  // console.log ( file.url );
   
   return response.redirect( file.url );
 })
