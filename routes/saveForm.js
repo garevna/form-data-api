@@ -19,6 +19,7 @@ function saveForm ( req, res, dbpath, dbcontent, result ) {
   
     if ( error ) return res.json ( getError ( 475, req.params.id ) );
     error = writeDB ( dbpath, dbcontent );
+    console.log ( error ? "Error writing DB" : "Writing DB: OK" );
     return res.json ( error ? error : dbcontent [ req.params.id ] );
 };
 

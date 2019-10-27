@@ -87,7 +87,7 @@ app.get("/", function(request, response) {
         console.log ( "size: ", files[file].size );
         console.log ( "type: ", files[file].type );
       }
-      console.log ( "Request files:\n", files );
+      // console.log ( "Request files:\n", files );
       return res.json({ status: "ok", message: result });
     });
     // form.on( 'field', function ( name, val ) {
