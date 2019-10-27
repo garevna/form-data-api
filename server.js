@@ -3,20 +3,26 @@ const app = express();
 const fs = require('fs');
 
 app.use(express.static("public"));
-app.use ( function (req, res, next )  {
-  console.log ( "request params: ", req.params );
-  console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
+// app.use ( function (req, res, next )  {
+//   console.log ( "request params: ", req.params );
+//   console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
   
-  if ( req.originalUrl.indexOf ( "images/" ) !== -1 && req.originalUrl.indexOf ( "icons/" ) !== -1 ) {
-    req.params.url = "https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F" + "js-08.png"
-  }
-})
+//   if ( req.originalUrl.indexOf ( "images/" ) !== -1 && req.originalUrl.indexOf ( "icons/" ) !== -1 ) {
+//     req.params.url = "https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F" + "js-08.png"
+//   }
+// })
 
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-[ "/images/*", "/images/lessons/*", "/icons/*" ].
+[ "/images/:imageName", "/images/lessons/:imageName", "/icons/:imageName" ].forEach (
+    item => app.get ( item, function ( req, res ) {
+      console.log ( "request params: ", req.params );
+      console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
+      res.sendFile( "https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F" + req.params.imageName );
+    })
+);
 
 app.get( "/uploads/large.txt", function ( req, res ) {
   const file = new fs.ReadStream('./uploads/large.txt');
