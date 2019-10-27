@@ -28,11 +28,10 @@ async function getLogin ( resolve, reject ) {
 }
 
 const userName = document.getElementById ( "userName" );
-userName.style.disabled = true
 const userAge = document.getElementById ( "userAge" );
 const avatar = document.getElementById ( "avatar" );
 
-[ userName, ]
+[ userName, userAge, avatar ].forEach ( elem => elem.disabled = true )
 
 const validateName = () => userName.value.length > 1 ? 
                "OK" : console.warn ( "Invalide name" );
