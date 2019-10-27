@@ -17,14 +17,6 @@ const getError = require ( "./routes/getError" );
 const assets = require('./assets');
 
 app.use(express.static("public"));
-// app.use ( function (req, res, next )  {
-//   console.log ( "request params: ", req.params );
-//   console.log ( "request url: ", req.url, "\nrequest original url: ", req.originalUrl );
-  
-//   if ( req.originalUrl.indexOf ( "images/" ) !== -1 && req.originalUrl.indexOf ( "icons/" ) !== -1 ) {
-//     req.params.url = "https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2F" + "js-08.png"
-//   }
-// })
 
 app.use( "/assets", assets );
 
@@ -71,26 +63,16 @@ app.get ( "/forms/:id", async function ( req, res ) {
         if ( dbcontent [ req.params.id ][ prop ].path ) {
           form.append ( prop, fs.createReadStream( dbcontent [ req.params.id ][ prop ].path ) );
         } else form.append( prop, dbcontent [ req.params.id ][ prop ] );
-      
-        //   form.append( 'file', {
-        //       // filename: 'unicycle.jpg', // ... or:
-        //       filepath: dbcontent [ req.params.id ][ prop ].path,
-        //       contentType: dbcontent [ req.params.id ][ prop ].type,
-        //       knownLength: dbcontent [ req.params.id ][ prop ].size
-        //   });
-        // }
-        
     }
     
     res.setHeader( 'Content-Type', 'multipart/form-data; boundary=' + form.getBoundary() );
     form.pipe(res);
-    // return res.send( form );
 });
 
-app.get ( "/uploads/:file", function ( req, res ) {
-  const file = `${__dirname}/uploads/${req.params.file}`;
-  return res.download( file );
-});
+// app.get ( "/uploads/:file", function ( req, res ) {
+//   const file = `${__dirname}/uploads/${req.params.file}`;
+//   return res.download( file );
+// });
 
 [ "post", "put", "patch", "delete" ].map(
   method => app[method] ( "/form/:id", async function ( req, res ) {

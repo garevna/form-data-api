@@ -6,6 +6,8 @@
 https://garevna-form-data.glitch.me/form/<id>
 ~~~
 
+**Sample**
+
 ~~~js
 let main = document.body.appendChild (
     document.createElement ( "main" )
@@ -51,4 +53,26 @@ const submitForm = event => {
         body: formData
     }).then ( response => console.log ( response ) )
 }
+~~~
+
+Receive data from server:
+
+~~~js
+let dataURL = "https://garevna-form-data.glitch.me/forms/frodo";
+
+async function getFormData ( url ) {
+    let formData = await ( await fetch ( url ) ).formData();
+    let user = {};
+    formData.forEach (
+        prop => prop instanceof File ? 
+            document.body.appendChild (
+                document.createElement ( "img" )
+            ).src = URL.createObjectURL ( prop ) :
+            document.body.appendChild (
+                document.createElement ( "p" )
+            ).innerText = prop
+    );
+};
+
+getFormData ( dataURL );
 ~~~

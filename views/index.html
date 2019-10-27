@@ -21,11 +21,13 @@
     </header>
 
     <main>
+      <input id="login" oninput="testLogin()" placeholder="login">
       <form id="form">
-        <input id="userName" name="name" onchange="validateName()">
+        <input id="userName" name="name" onchange="validateName()" placeholder="Name">
         <input type="number"
                id="userAge" 
-               name="age" 
+               name="age"
+               placeholder="Age"
                onchange="validateAge()">
         <input type="file" 
                id="avatar" 
