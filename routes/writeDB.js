@@ -5,7 +5,7 @@ const writeDB = function ( dbpath, dbcontent ) {
     fs.writeFile(
         dbpath,
         JSON.stringify( dbcontent ),
-        err => err ? getError ( 520 ) : null
+        err => err ? console.log ( getError ( 520 ) ) : null
     );
 }
 

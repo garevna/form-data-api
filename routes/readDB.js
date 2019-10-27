@@ -24,14 +24,14 @@ function readDB ( req, res ) {
 
       if ( !dbname ) {
         console.log ( "dbname is not defined", dbname );
-        res.json ( getError ( 404 ) );
+        // res.json ( getError ( 404 ) );
         reject ( "dbname is not defined", dbname );
       };
 
       fs.readFile ( dbpath, "utf8", function( err, content ) {
           if ( err ) {
             console.log ( `Error reading the file ${dbpath}` );
-            res.json ( getError ( 500 ) );
+            // res.json ( getError ( 500 ) );
             reject ( `Error reading the file ${dbpath}` );
           } else {
             resolve ({
