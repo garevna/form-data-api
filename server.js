@@ -3,6 +3,9 @@ const app = express();
 const fs = require('fs');
 
 app.use(express.static("public"));
+app.all ( function (req, res, next )  {
+  if ( req.originalUrl.indexOf ( "images" ) !== -1 && req.originalUrl.indexOf ( "images" ) !== -1 )
+})
 
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
