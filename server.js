@@ -29,11 +29,67 @@ const assets = require('./assets');
 app.use( "/assets", assets );
 // app.use ( "", );
 
+app.options( "/*", function (req, res, next ) {
+  console.log ( "Pre flight request" );
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,HEADERS,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.sendStatus(200);
+});
+
+app.use( function(req, res, next) {
+  console.log ( req.originalUrl );
+  res.header( "Access-Control-Allow-Origin", req.headers.origin );
+  res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE, HEAD"
+  );
+  res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
+app.get ( "/forms/all", async function ( req, res ) {
+    console.log ( "Forms all" );
+    let { dbpath, dbcontent } = await readDB ( req, res );
+    res.json ( dbcontent );
+});
 
+app.get ( "/forms/:id", async function ( req, res ) {
+
+    let { dbpath, dbcontent } = await readDB ( req, res );
+    if ( !dbcontent [ req.params.id ] ) return res.json ( getError ( 404 ) );
+
+    let form = new FormData();
+    for ( let prop in dbcontent [ req.params.id ] ) {
+        if ( prop.path ) {
+          form.append('file', stdout, {
+              // filename: 'unicycle.jpg', // ... or:
+              filepath: `${__dirname}/uploads/${req.params.file}`,
+              contentType: 'image/jpeg',
+              knownLength: 19806
+          });
+        }
+
+    }
+    form.append( 'my_field', 'my value' );
+
+
+    // return res.json ( dbcontent [ req.params.id ] );
+    res.setHeader( 'Content-Type', 'multipart/form-data' );
+    return res.send( form );
+});
+
+app.get ( "/uploads/:file", function ( req, res ) {
+  const file = `${__dirname}/uploads/${req.params.file}`;
+  return res.download( file );
+});
 
 [ "post", "put", "patch", "delete" ].map(
   method => app[method] ( "/form/:id", async function ( req, res ) {
@@ -98,23 +154,23 @@ app.get("/", function(request, response) {
   })
 );
 
-app.get( "/uploads/large.txt", function ( req, res ) {
-  const file = new fs.ReadStream('./uploads/large.txt');
-  file.pipe(res);
-  let data = file.read();
-  console.log ( data );
-  file.on('error', function(err){
-        res.statusCode = 500;
-        res.end("Server Error");
-        console.error(err);
-  });
-  file
-    .on( 'open', () => console.log ("open") )
-    .on( 'close', () => console.log ("End of file") )
+// app.get( "/uploads/large.txt", function ( req, res ) {
+//   const file = new fs.ReadStream('./uploads/large.txt');
+//   file.pipe(res);
+//   let data = file.read();
+//   console.log ( data );
+//   file.on('error', function(err){
+//         res.statusCode = 500;
+//         res.end("Server Error");
+//         console.error(err);
+//   });
+//   file
+//     .on( 'open', () => console.log ("open") )
+//     .on( 'close', () => console.log ("End of file") )
  
-    res.on('close', () => file.destroy() )
-})
+//     res.on('close', () => file.destroy() )
+// })
 
-const listener = app.listen(process.env.PORT, function() {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+// const listener = app.listen(process.env.PORT, function() {
+//   console.log("Your app is listening on port " + listener.address().port);
+// });

@@ -17,7 +17,7 @@ function saveForm ( req, res, dbpath, dbcontent, result ) {
                           delete dbcontent [ req.params.id ] :
                               dbcontent [ req.params.id ] = result;
   
-    if ( error ) return res.json ( getError ( 475, req.params.id ) );
+    if ( error ) return res.json ( error );
     error = writeDB ( dbpath, dbcontent );
     if ( error ) {
       console.log ( "Error writing DB" );
