@@ -21,16 +21,23 @@
     </header>
 
     <main>
-      <p class="bold">Sample</p>
-      
+      <form id="form">
+        <input id="userName" name="name" onchange="validateName()">
+        <input type="number"
+               id="userAge" 
+               name="age" 
+               onchange="validateAge()">
+        <input type="file" 
+               id="avatar" 
+               name="avatar" 
+               onchange="validateImage()"
+        >
+      </form>
+      <button id="submit" onclick="submitForm(event)">Submit</button>
     </main>
 
-<!--     <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
-    </footer> -->
-
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+<!--     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
-
+ -->
   </body>
 </html>
