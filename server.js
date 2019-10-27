@@ -51,6 +51,28 @@ app.use( "/assets", assets );
 //   next();
 // });
 
+app.options( "/*", function (req, res, next ) {
+  console.log ( "Pre flight request" );
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,HEADERS,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.sendStatus(200);
+});
+
+app.use( function(req, res, next) {
+  console.log ( req.originalUrl );
+  res.header( "Access-Control-Allow-Origin", req.headers.origin );
+  res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE, HEAD"
+  );
+  res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
@@ -70,8 +92,9 @@ app.get ( "/forms/:id", async function ( req, res ) {
     let form = new FormData();
     for ( let prop in dbcontent [ req.params.id ] ) {
         if ( dbcontent [ req.params.id ][ prop ].path ) {
-          form.
-        }
+          form.append ( prop, fs.createReadStream( dbcontent [ req.params.id ][ prop ].path ) );
+        } else form.append( prop, dbcontent [ req.params.id ][ prop ] );
+      
         //   form.append( 'file', {
         //       // filename: 'unicycle.jpg', // ... or:
         //       filepath: dbcontent [ req.params.id ][ prop ].path,
@@ -79,11 +102,12 @@ app.get ( "/forms/:id", async function ( req, res ) {
         //       knownLength: dbcontent [ req.params.id ][ prop ].size
         //   });
         // }
-        form.append( prop, dbcontent [ req.params.id ][ prop ] );
+        
     }
     
     res.setHeader( 'Content-Type', 'multipart/form-data; boundary=' + form.getBoundary() );
-    return res.send( form );
+    form.pipe(res);
+    // return res.send( form );
 });
 
 app.get ( "/uploads/:file", function ( req, res ) {
