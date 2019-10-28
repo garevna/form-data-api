@@ -1,5 +1,17 @@
+const fs = require( "fs" );
+
 const writeDB = require( "./writeDB" );
 const getError = require ( "./getError" );
+const deleteRecord = record => {
+  let files = Object.keys ( record )
+    .filter ( prop => prop.path );
+  console.log ( files );
+  
+  fs.unlink( filePath, err => err ? 
+     console.log( 'Error deleting file: ', err ) :
+     console.log( 'file deleted successfully' )
+  );
+}
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
     console.log ( "RESULT:\n", result );
