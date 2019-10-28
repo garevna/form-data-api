@@ -42,9 +42,11 @@ input[type="file"] {
   color: #09b;
 }
 
-h1 {
+h4 {
   font-style: italic;
-  color: #373fff;
+  color: #09b;
+  padding: 0;
+  margin-top: 0;
 }
 
 .bold {
