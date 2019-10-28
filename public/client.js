@@ -99,7 +99,6 @@ const register = login => {
         }
 
         let formData = new FormData ( document.getElementById ( "form" ) );
-        formData.forEach ( prop => console.log ( prop ) );
 
         fetch ( `https://garevna-form-data.glitch.me/form/${login}`, {
             method: "POST",
