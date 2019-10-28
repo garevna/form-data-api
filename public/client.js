@@ -27,6 +27,8 @@ function getInput ( users ) {
                 let res = logins.find ( login => login === event.target.value );
 
                 userInput.remove();
+              
+                console.log ( userLogin );
 
                 !res ? reject ( userLogin ) : resolve ( userLogin )
             };
@@ -62,25 +64,23 @@ const resolve = userLogin => {
                 document.body.appendChild (
                     document.createElement ( "p" )
                 ).innerText = prop
-        )
+        );
     }
 
-    getFormData ( dataURL )
+    getFormData ( dataURL );
 }
 
 const register = login => {
-    
-    const validateName = () => message.innerText = userName.value.length > 1 ? "" : "Invalide name";
-    const validateAge = () => message.innerText = userAge.value > 5 && userAge.value < 120 ? "" : "Invalide age";
+    console.log ( "Registration: ", login );
+    document.getElementById ( "form" ).style.display = "block";
+    message.innerText = "";
     const validateImage = () => message.innerText = 
           avatar.files[0].type.indexOf ( "image" ) === 0 ? avatar.files[0].size < 100000 ? "" : 
               "File is too large" : "It's not an image file";
     
-    userName.onchange = validateName;
-    userAge.onchange = validateAge;
     avatar.onchange = validateImage;
     
-    let ready = () => !message.innerText;
+    let ready = () => userName.value.length > 1 && userAge.value < 100 && userAge.value > 5 && !message.innerText;
   
     const submitForm = event => {
 
