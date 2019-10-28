@@ -7,9 +7,7 @@ function getInput ( users ) {
 
     let logins = Object.keys ( users );
 
-    let userInput = document.body.appendChild (
-        document.createElement ( "input" )
-    );
+    let userInput = document.getElementById ( "login" );
     
     userInput.oninput = event => {
         let test = logins.filter (
@@ -23,12 +21,12 @@ function getInput ( users ) {
     return new Promise (
         ( resolve, reject ) => {
             userInput.onchange = event => {
-                let newUserLogin = event.target.value;
+                let userLogin = event.target.value;
                 let res = logins.find ( login => login === event.target.value );
 
                 userInput.remove();
 
-                !res ? reject ( newUserLogin ) : resolve ( users[ res ] )
+                !res ? reject ( userLogin ) : resolve ( userLogin )
             };
         }
     )
@@ -39,7 +37,7 @@ function getInput ( users ) {
 async function getLogin () {
    
     let users = await (
-        await fetch ( "https://garevna-form-data.glitch.me/users/all" )
+        await fetch ( "https://garevna-form-data.glitch.me/forms/all" )
     ).json();
 
     return await getInput ( users )
@@ -47,9 +45,9 @@ async function getLogin () {
 
 // ==========================================================
 
-const resolve = response => {
-    console.log ( response );
-    let dataURL = `https://garevna-form-data.glitch.me/forms/${response}`
+const resolve = userLogin => {
+    console.log ( userLogin );
+    let dataURL = `https://garevna-form-data.glitch.me/forms/${userLogin}`
 
     async function getFormData ( url ) {
         let formData = await ( await fetch ( url ) ).formData()
@@ -78,6 +76,7 @@ const register = login => {
                             avatar.files[0].size < 100000 ? "OK" : 
                             console.warn ( "File is too large" ) :
                             console.warn ( "It's not an image file" );
+    userName.onchange = validate
     
     let ready = () => validateName() && validateAge() && validateImage();
   
