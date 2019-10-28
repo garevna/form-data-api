@@ -2,6 +2,8 @@ const userName = document.getElementById ( "userName" );
 const userAge = document.getElementById ( "userAge" );
 const avatar = document.getElementById ( "avatar" );
 const message = document.getElementById ( "message" );
+const submit = document.getElementById ( "submit" );
+const registration = document.getElementById ( "registration" );
 
 let currentUser = null;
 
@@ -72,7 +74,7 @@ const resolve = userLogin => {
 
 const register = login => {
     console.log ( "Registration: ", login );
-    document.getElementById ( "registration" ).style.display = "block";
+    registration.style.display = "block";
     message.innerText = "";
     const validateImage = () => message.innerText = 
           avatar.files[0].type.indexOf ( "image" ) === 0 ? avatar.files[0].size < 100000 ? "" : 
@@ -82,9 +84,16 @@ const register = login => {
     
     let ready = () => userName.value.length > 1 && userAge.value < 100 && userAge.value > 5 && !message.innerText;
   
-    const submitForm = event => {
+    submit.onclick = event => {
         
-        if ( !ready() ) return;
+        if ( !ready() ) {
+          setTimeout ( ()=> {
+            message.innerText = "User data will not be saved";
+            registration.style.display = "none";
+          }, 1500 );
+          
+          return;
+        }
 
         let formData = new FormData ( document.getElementById ( "form" ) );
         formData.forEach ( prop => console.log ( prop ) );
@@ -92,7 +101,7 @@ const register = login => {
         fetch ( `https://garevna-form-data.glitch.me/form/${login}`, {
             method: "POST",
             body: formData
-        }).then ( response => console.log ( response ) );
+        }).then ( response => { registration.style.display = "none"; resolve ( login ) } );
     };
 }
 
