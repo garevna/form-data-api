@@ -6,7 +6,8 @@ const getError = require ( "./getError" );
 function saveForm ( req, res, dbpath, dbcontent, result ) {
     const deleteRecord = ( dbcontent, id ) => {
       console.log ( `id: ${id}\nObject.keys ( ${dbcontent [id]} )`, Object.keys ( dbcontent [id] ) );
-      let files = Object.keys ( dbcontent [id] )
+      let keys = Object.keys ( dbcontent [id] ;
+      f
         .filter ( prop => prop.path );
       console.log ( "function deleteRecord\nFILES:\n", files );
       files.forEach (
