@@ -11,6 +11,10 @@ body {
   margin: 2em;
 }
 
+img {
+  max-width: 70px;
+}
+
 #registration {
   position: absolute;
   top: 150px;
@@ -22,9 +26,13 @@ body {
   z-index: 10;
 }
 
-@media screen and ( max-width: 420px ) {
+@media screen and ( max-width: 500px ) {
   #registration {
     top: 100px;
+    margin: 0;
+  }
+  main {
+    padding: 0;
     margin: 0;
   }
 }
@@ -47,14 +55,6 @@ h4 {
   color: #09b;
   padding: 0;
   margin-top: 0;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-p {
-  max-width: 90vw;
 }
 
 main {
@@ -81,9 +81,9 @@ button {
 }
 
 button:hover {
-  color: #f50;
+  color: #09b;
 }
 
 button:active {
-  color: #09b;
+  color: #f50;
 }

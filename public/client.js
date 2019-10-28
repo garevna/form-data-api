@@ -52,7 +52,6 @@ async function getLogin () {
 // ==========================================================
 
 const resolve = userLogin => {
-    console.log ( userLogin );
     let dataURL = `https://garevna-form-data.glitch.me/forms/${userLogin}`
 
     async function getFormData ( url ) {
@@ -73,12 +72,15 @@ const resolve = userLogin => {
 }
 
 const register = login => {
-    console.log ( "Registration: ", login );
     registration.style.display = "block";
     message.innerText = "";
-    const validateImage = () => message.innerText = 
+    const validateImage = event => {
+      message.innerText = 
           avatar.files[0].type.indexOf ( "image" ) === 0 ? avatar.files[0].size < 100000 ? "" : 
               "File is too large" : "It's not an image file";
+      const userPhoto = document.getElementById ( "userPhoto" );
+      userPhoto.src = URL.createObjectURL( event.target.files [0] );
+    }
     
     avatar.onchange = validateImage;
     
