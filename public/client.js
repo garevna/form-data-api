@@ -72,7 +72,7 @@ const resolve = userLogin => {
 
 const register = login => {
     console.log ( "Registration: ", login );
-    document.getElementById ( "form" ).style.display = "block";
+    document.getElementById ( "registration" ).style.display = "block";
     message.innerText = "";
     const validateImage = () => message.innerText = 
           avatar.files[0].type.indexOf ( "image" ) === 0 ? avatar.files[0].size < 100000 ? "" : 
@@ -83,10 +83,11 @@ const register = login => {
     let ready = () => userName.value.length > 1 && userAge.value < 100 && userAge.value > 5 && !message.innerText;
   
     const submitForm = event => {
-
+        
         if ( !ready() ) return;
 
         let formData = new FormData ( document.getElementById ( "form" ) );
+        formData.forEach ( prop => console.log ( prop ) );
 
         fetch ( `https://garevna-form-data.glitch.me/form/${login}`, {
             method: "POST",
