@@ -87,18 +87,24 @@ app.get ( "/forms/:id", async function ( req, res ) {
       Object.assign ( result, fields );
       for ( let file in files ) {
         if ( files[file].type.indexOf ( "image" ) === -1 ) {
-            fs.unlink( files[file].path, function(err) {
-                if( err ) console.log( 'Error deleting file: ', err );
-                else console.log( 'file deleted successfully' );
+            fs.unlink( files[file].path, err => err ? 
+                      console.log( 'Error deleting file: ', err ) :
+                      console.log( 'file deleted successfully' )
+            );
+            return res.json ({
+              error: 415, 
+              message: `Invalid file type ${files[file].name}. Only images are available`
             });
-            return res.json ({ error: 415, message: `Invalid file type ${files[file].name}. Only images are available` });
         };
         if ( files[file].size > 307200 ) {
-          fs.unlink( files[file].path, function(err) {
-              if( err ) return console.log( 'Error deleting file: ', err );
-              else console.log( 'file deleted successfully' );
-          });
-          return res.json ({ error: 413, message: `File ${files[file].name} is too large. Max available size 300Kb` })
+          fs.unlink( files[file].path, err => err ? 
+                      console.log( 'Error deleting file: ', err ) :
+                      console.log( 'file deleted successfully' )
+          );
+          return res.json ({
+            error: 413,
+            message: `File ${files[file].name} is too large. Max available size 300Kb`
+          })
         }
         Object.assign ( result, {
           [file]: {
