@@ -10,6 +10,13 @@ body {
   margin: 2em;
 }
 
+#registration {
+  position: absolute;
+  margin-top: 150px;
+  margin-left: calc(50vw - 250px);
+  margin-right: calc(50vw - 250px);
+}
+
 input {
   display: block;
   padding: 4px 8px;

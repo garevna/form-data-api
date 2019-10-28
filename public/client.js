@@ -1,3 +1,7 @@
+const userName = document.getElementById ( "userName" );
+const userAge = document.getElementById ( "userAge" );
+const avatar = document.getElementById ( "avatar" );
+
 function getInput ( users ) {
 
     let logins = Object.keys ( users );
@@ -47,13 +51,9 @@ const resolve = response => {
 }
 
 const register = login => {
-    document.getElementById ( "form" ).style.display = "block";
-    document.getElementById ( "submit" ).style.display = "block";
-  
-    const userName = document.getElementById ( "userName" );
-    const userAge = document.getElementById ( "userAge" );
-    const avatar = document.getElementById ( "avatar" );
-    [ userName, userAge, avatar ].forEach ( elem => elem.disabled = true );
+    document.getElementById ( "registration" ).style.display = "block";
+    
+    [ userName, userAge, avatar ].forEach ( elem => elem.style.display = "block" );
     
     const validateName = () => userName.value.length > 1 ? 
                "OK" : console.warn ( "Invalide name" );
