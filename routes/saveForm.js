@@ -2,21 +2,25 @@ const fs = require( "fs" );
 
 const writeDB = require( "./writeDB" );
 const getError = require ( "./getError" );
-const deleteRecord = ( dbcontent, id ) => {
-  let files = Object.keys ( dbcontent [id] )
-    .filter ( prop => prop.path );
-  console.log ( files );
-  files.forEach (
-      file => fs.unlink( file.path, err => err ? 
-         console.log( 'Error deleting file: ', err ) :
-         console.log( 'file deleted successfully' )
-      )
-  )
-  delete dbcontent [id];
-}
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
-    console.log ( "RESULT:\n", result, "\n_" );
+    const deleteRecord = ( dbcontent, id ) => {
+      console.log ( `id: ${id}\nObject.keys ( ${dbcontent [id]} )`, Object.keys ( dbcontent [id] ) );
+      let files = Object.keys ( dbcontent [id] )
+        .filter ( prop => prop.path );
+      console.log ( "function deleteRecord\nFILES:\n", files );
+      files.forEach (
+          file => fs.unlink( file.path, err => err ? 
+             console.log( 'Error deleting file: ', err ) :
+             console.log( 'file deleted successfully' )
+          )
+      )
+      delete dbcontent [id];
+    }
+    console.log ( "RESULT:\n", result );
+    if ( Object.keys ( result ).length === 0 ) 
+        return res.status ( 404 )
+            .send ( `${req.params.id} not found` );
     let error = null;
     req.method.toUpperCase() === "POST" ?
       dbcontent [ req.params.id ] ?
