@@ -16,7 +16,7 @@ const deleteRecord = ( dbcontent, id ) => {
 }
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
-    console.log ( "RESULT:\n", result );
+    console.log ( "RESULT:\n", result, "\n_" );
     let error = null;
     req.method.toUpperCase() === "POST" ?
       dbcontent [ req.params.id ] ?
@@ -31,7 +31,7 @@ function saveForm ( req, res, dbpath, dbcontent, result ) {
                               dbcontent [ req.params.id ] = result;
   
     if ( error ) return res.status ( error.num ).send ( error.message );
-    console.log ( dbpath, dbcontent );
+    // console.log ( dbpath, dbcontent );
     error = writeDB ( dbpath, dbcontent );
     if ( error ) return res.status ( error.num ).send ( error.message );
     return res.status ( 200 ).send ( JSON.stringify ( dbcontent [ req.params.id ] ) );
