@@ -2,15 +2,17 @@ const fs = require( "fs" );
 
 const writeDB = require( "./writeDB" );
 const getError = require ( "./getError" );
-const deleteRecord = record => {
-  let files = Object.keys ( record )
+const deleteRecord = ( dbcontent, id ) => {
+  let files = Object.keys ( dbcontent [id] )
     .filter ( prop => prop.path );
   console.log ( files );
-  
-  fs.unlink( filePath, err => err ? 
-     console.log( 'Error deleting file: ', err ) :
-     console.log( 'file deleted successfully' )
-  );
+  files.forEach (
+      file => fs.unlink( file.path, err => err ? 
+         console.log( 'Error deleting file: ', err ) :
+         console.log( 'file deleted successfully' )
+      )
+  )
+  delete dbcontent [id];
 }
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
@@ -25,7 +27,7 @@ function saveForm ( req, res, dbpath, dbcontent, result ) {
                req.method.toUpperCase() === "PATCH" ?
                   Object.assign ( dbcontent [ req.params.id ], result ) :
                       req.method.toUpperCase() === "DELETE" ?
-                          delete dbcontent [ req.params.id ] :
+                          deleteRecord ( dbcontent, req.params.id ) :
                               dbcontent [ req.params.id ] = result;
   
     if ( error ) return res.status ( error.num ).send ( error.message );
