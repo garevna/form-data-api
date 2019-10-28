@@ -1,31 +1,54 @@
-async function getLogin ( resolve, reject ) {
-    let users = await (
-        await fetch ( "https://garevna-rest-api.glitch.me/users/all" )
-    ).json();
-    
+function getInput ( users ) {
+
     let logins = Object.keys ( users );
-    
+
     let userInput = document.body.appendChild (
         document.createElement ( "input" )
     );
     
-    userInput.oninput = function ( event ) {
+    userInput.oninput = event => {
         let test = logins.filter (
             login => login.indexOf ( event.target.value ) !== -1
         ).length > 0;
         
         event.target.style.color = test ? "green" : "red";
-        event.target.title = test ? "OK" : "There are no such user in DB";
+        event.target.title = test ? "..." : "There are no such user in DB";
     };
     
-    userInput.onchange = async event => {
-        let res = logins.find ( login => login === event.target.value );
-         
-        userInput.remove();
-        
-        !res ? reject ( "Not found" ) : resolve ( users[ res ] );
-    };
+    return new Promise (
+        ( resolve, reject ) => {
+            userInput.onchange = event => {
+                let res = logins.find ( login => login === event.target.value );
+
+                userInput.remove();
+
+                !res ? reject ( "Not found" ) : resolve ( users[ res ] )
+            };
+        }
+    )
 }
+
+// ======================= getLogin ========================= 
+
+async function getLogin () {
+   
+    let users = await (
+        await fetch ( "https://garevna-rest-api.glitch.me/users/all" )
+    ).json();
+
+    return await getInput ( users )
+}
+
+// ==========================================================
+
+const resolve = response => {
+    
+}
+const reject = error => console.warn ( error )
+
+
+getLogin ().then ( resolve, reject )
+
 
 const userName = document.getElementById ( "userName" );
 const userAge = document.getElementById ( "userAge" );
