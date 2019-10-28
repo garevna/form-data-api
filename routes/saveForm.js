@@ -5,20 +5,18 @@ const getError = require ( "./getError" );
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
     const deleteRecord = ( dbcontent, id ) => {
+      if ( !dbcontent [ req.params.id ] ) return res.status ( 404 ).send ( `${req.params.id} not found` );
       for ( let key in dbcontent [id] ) {
         console.log ( "KEY: ", key );
         if ( dbcontent[id][key] && dbcontent[id][key].path )
             fs.unlink( dbcontent[id][key].path, err => err ? 
-                console.log( `Error deleting file: ${dbcontent[id][key].path}`, err ) :
-                console.log( `file ${dbcontent[id][key].path} deleted successfully` )
+                console.log( `Error deleting file`, err ) :
+                console.log( `file deleted successfully` )
             );
       }
       delete dbcontent [id];
     }
     
-    if ( Object.keys ( result ).length === 0 ) 
-        return res.status ( 404 )
-            .send ( `${req.params.id} not found` );
     let error = null;
     req.method.toUpperCase() === "POST" ?
       dbcontent [ req.params.id ] ?
