@@ -76,48 +76,50 @@ app.get ( "/forms/:id", async function ( req, res ) {
     });
 
     let { dbpath, dbcontent } = await readDB ( req, res );
-    // if ( !dbcontent ) { console.log ( "Empty " ); return };
+    
     let error = null;
     form.parse( req, function ( err, fields, files ) {
       let result = {};
       if ( err ) {
         console.log ( "Error: ", err.stack );
-        return res.json ({ error: 500, message: err.stack });
+        return res.status ( 500 ).send ( err.stack );
       }
+      
       Object.assign ( result, fields );
+      
       for ( let file in files ) {
-        if ( files[file].type.indexOf ( "image" ) === -1 ) {
-            fs.unlink( files[file].path, err => err ? 
-                      console.log( 'Error deleting file: ', err ) :
-                      console.log( 'file deleted successfully' )
-            );
-            return res.json ({
-              error: 415, 
-              message: `Invalid file type ${files[file].name}. Only images are available`
-            });
-        };
-        if ( files[file].size > 307200 ) {
-          fs.unlink( files[file].path, err => err ? 
-                      console.log( 'Error deleting file: ', err ) :
-                      console.log( 'file deleted successfully' )
-          );
-          return res.json ({
-            error: 413,
-            message: `File ${files[file].name} is too large. Max available size 300Kb`
-          })
-        }
-        Object.assign ( result, {
-          [file]: {
-            path: files[file].path,
-            name: files[file].name,
-            size: files[file].size,
-            type: files[file].type
-          }
-        });
-        let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
-        error = saveForm ( req, res, dbpath, dbcontent, result );
-        if ( error ) break;
+          // if ( files[file].type.indexOf ( "image" ) === -1 ) {
+          //     fs.unlink( files[file].path, err => err ? 
+          //               console.log( 'Error deleting file: ', err ) :
+          //               console.log( 'file deleted successfully' )
+          //     );
+          //     return res.json ({
+          //       error: 415, 
+          //       message: `Invalid file type ${files[file].name}. Only images are available`
+          //     });
+          // };
+          // if ( files[file].size > 307200 ) {
+          //   fs.unlink( files[file].path, err => err ? 
+          //               console.log( 'Error deleting file: ', err ) :
+          //               console.log( 'file deleted successfully' )
+          //   );
+          //   return res.json ({
+          //     error: 413,
+          //     message: `File ${files[file].name} is too large. Max available size 300Kb`
+          //   })
+          // }
+          Object.assign ( result, {
+            [file]: {
+              path: files[file].path,
+              name: files[file].name,
+              size: files[file].size,
+              type: files[file].type
+            }
+          });
       }
+      let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
+      error = saveForm ( req, res, dbpath, dbcontent, result );
+      if ( error ) return null;
     });
   })
 );
