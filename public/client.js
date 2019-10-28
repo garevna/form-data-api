@@ -1,7 +1,9 @@
 const userName = document.getElementById ( "userName" );
 const userAge = document.getElementById ( "userAge" );
 const avatar = document.getElementById ( "avatar" );
-let currentUser = null
+const message = document.getElementById ( "message" );
+
+let currentUser = null;
 
 function getInput ( users ) {
 
@@ -68,21 +70,21 @@ const resolve = userLogin => {
 
 const register = login => {
     
-    const validateName = () => userName.value.length > 1 ? 
-               "OK" : console.warn ( "Invalide name" );
-    const validateAge = () => userAge.value > 5 && userAge.value < 120 ? 
-               "OK" : console.warn ( "Invalide age" );
-    const validateImage = () => avatar.files[0].type.indexOf ( "image" ) === 0 ?
-                            avatar.files[0].size < 100000 ? "OK" : 
-                            console.warn ( "File is too large" ) :
-                            console.warn ( "It's not an image file" );
-    userName.onchange = validate
+    const validateName = () => message.innerText = userName.value.length > 1 ? "" : "Invalide name";
+    const validateAge = () => message.innerText = userAge.value > 5 && userAge.value < 120 ? "" : "Invalide age";
+    const validateImage = () => message.innerText = 
+          avatar.files[0].type.indexOf ( "image" ) === 0 ? avatar.files[0].size < 100000 ? "" : 
+              "File is too large" : "It's not an image file";
     
-    let ready = () => validateName() && validateAge() && validateImage();
+    userName.onchange = validateName;
+    userAge.onchange = validateAge;
+    avatar.onchange = validateImage;
+    
+    let ready = () => !message.innerText;
   
     const submitForm = event => {
 
-        if ( !ready() ) return console.warn ( "Form not ready yet" );
+        if ( !ready() ) return;
 
         let formData = new FormData ( document.getElementById ( "form" ) );
 

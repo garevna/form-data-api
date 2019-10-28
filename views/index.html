@@ -17,28 +17,26 @@
     <header>
         <img src="/assets/cat.gif" width="30">
         <small id="logMessage"> Sign in</small>
-        <input id="login" oninput="testLogin()" placeholder="login">
+        <input id="login" placeholder="login">
     </header>
 
     <main>
       <section id="registration" style="display: none">
           <h4>Registration</h4>
+          <p id="message" style="color: #f50"></p>
           <form id="form">
             <p>Name</p>
-            <input id="userName" name="name" onchange="validateName()" placeholder="Name">
+            <input id="userName" name="name" placeholder="Name">
             <p>Age</p>
             <input type="number"
                    id="userAge" 
                    name="age"
                    placeholder="Age"
-                   onchange="validateAge()">
-            <p>
-              Your Photo
-            </p>
+            >
+            <p>Your Photo</p>
             <input type="file" 
                    id="avatar" 
                    name="avatar" 
-                   onchange="validateImage()"
             >
             <img id="userPhoto" src="https://forexi.ru/wp-content/uploads/2019/02/teacher1.png" width="70">
           </form>
