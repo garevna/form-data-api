@@ -18,11 +18,12 @@ function getInput ( users ) {
     return new Promise (
         ( resolve, reject ) => {
             userInput.onchange = event => {
+                let newUserLogin = event.target.value;
                 let res = logins.find ( login => login === event.target.value );
 
                 userInput.remove();
 
-                !res ? reject ( "Not found" ) : resolve ( users[ res ] )
+                !res ? reject ( newUserLogin ) : resolve ( users[ res ] )
             };
         }
     )
@@ -33,7 +34,7 @@ function getInput ( users ) {
 async function getLogin () {
    
     let users = await (
-        await fetch ( "https://garevna-rest-api.glitch.me/users/all" )
+        await fetch ( "https://garevna-form-data.glitch.me/users/all" )
     ).json();
 
     return await getInput ( users )
@@ -44,19 +45,14 @@ async function getLogin () {
 const resolve = response => {
     
 }
-const reject = error => console.warn ( error )
 
-
-getLogin ().then ( resolve, reject )
-
-
-const userName = document.getElementById ( "userName" );
-const userAge = document.getElementById ( "userAge" );
-const avatar = document.getElementById ( "avatar" );
-
-[ userName, userAge, avatar ].forEach ( elem => elem.disabled = true )
-
-const validateName = () => userName.value.length > 1 ? 
+const register = login => {
+    const userName = document.getElementById ( "userName" );
+    const userAge = document.getElementById ( "userAge" );
+    const avatar = document.getElementById ( "avatar" );
+    [ userName, userAge, avatar ].forEach ( elem => elem.disabled = true );
+    
+    const validateName = () => userName.value.length > 1 ? 
                "OK" : console.warn ( "Invalide name" );
     const validateAge = () => userAge.value > 5 && userAge.value < 120 ? 
                "OK" : console.warn ( "Invalide age" );
@@ -64,33 +60,35 @@ const validateName = () => userName.value.length > 1 ?
                             avatar.files[0].size < 100000 ? "OK" : 
                             console.warn ( "File is too large" ) :
                             console.warn ( "It's not an image file" );
+    
     let ready = () => validateName() && validateAge() && validateImage();
+  
+    const submitForm = event => {
 
-getLogin ( 
-  res => {
+        if ( !ready() ) return console.warn ( "Form not ready yet" );
+
+        let formData = new FormData ( document.getElementById ( "form" ) );
+
+        fetch ( "https://garevna-form-data.glitch.me/form/frodo", {
+            method: "POST",
+            body: formData
+        }).then ( response => console.log ( response ) );
+    };
+}
+
+
+getLogin ().then ( resolve, register )
+
+
+
+
+
+
+
+
     
     
     
-  }, 
-  err => console.error ( err )
-)
 
 
 
-
-
-
-
-
-
-const submitForm = event => {
-
-    if ( !ready() ) return console.warn ( "Form not ready yet" );
-
-    let formData = new FormData ( document.getElementById ( "form" ) );
-
-    fetch ( "https://garevna-form-data.glitch.me/form/frodo", {
-        method: "POST",
-        body: formData
-    }).then ( response => console.log ( response ) );
-};
