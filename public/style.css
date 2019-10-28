@@ -12,7 +12,7 @@ body {
 }
 
 #registration {
-  position: fixed;
+  position: absolute;
   top: 150px;
   margin-left: calc(50vw - 250px);
   margin-right: calc(50vw - 250px);
@@ -20,6 +20,13 @@ body {
   padding: 30px;
   box-sizing: border-box;
   z-index: 10;
+}
+
+@media screen and ( max-width: 420px ) {
+  #registration {
+    top: 100px;
+    margin: 0;
+  }
 }
 
 input {
@@ -48,6 +55,10 @@ p {
   max-width: 90vw;
 }
 
+main {
+  overflow: auto;
+}
+
 form {
   margin-bottom: 25px;
   padding: 30px;
@@ -73,10 +84,4 @@ button:hover {
 
 button:active {
   color: #09b;
-}
-
-footer {
-  margin-top: 50px;
-  padding-top: 25px;
-  border-top: 1px solid lightgrey;
 }
