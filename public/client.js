@@ -69,6 +69,7 @@ const resolve = userLogin => {
     }
 
     getFormData ( dataURL );
+    document.getElementsByTagName ( "header" )[0].remove();
 }
 
 const register = login => {
@@ -103,7 +104,11 @@ const register = login => {
         fetch ( `https://garevna-form-data.glitch.me/form/${login}`, {
             method: "POST",
             body: formData
-        }).then ( response => { registration.style.display = "none"; resolve ( login ) } );
+        }).then ( response => {
+          registration.style.display = "none";
+          document.getElementsByTagName ( "header" )[0].remove();
+          resolve ( login );
+        });
     };
 }
 

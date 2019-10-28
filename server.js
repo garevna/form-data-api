@@ -47,7 +47,6 @@ app.get("/", function(request, response) {
 });
 
 app.get ( "/forms/all", async function ( req, res ) {
-    console.log ( "Forms all" );
     let { dbpath, dbcontent } = await readDB ( req, res );
     res.json ( dbcontent );
 });
@@ -56,7 +55,6 @@ app.get ( "/forms/:id", async function ( req, res ) {
 
     let { dbpath, dbcontent } = await readDB ( req, res );
     if ( !dbcontent [ req.params.id ] ) return res.json ( getError ( 404 ) );
-    console.log ( dbcontent [ req.params.id ] );
 
     let form = new FormData();
     for ( let prop in dbcontent [ req.params.id ] ) {
@@ -69,11 +67,6 @@ app.get ( "/forms/:id", async function ( req, res ) {
     form.pipe(res);
 });
 
-// app.get ( "/uploads/:file", function ( req, res ) {
-//   const file = `${__dirname}/uploads/${req.params.file}`;
-//   return res.download( file );
-// });
-
 [ "post", "put", "patch", "delete" ].map(
   method => app[method] ( "/form/:id", async function ( req, res ) {
     let form = new formidable.IncomingForm({
@@ -83,7 +76,6 @@ app.get ( "/forms/:id", async function ( req, res ) {
     });
 
     let { dbpath, dbcontent } = await readDB ( req, res );
-    console.log ( "DB content:\n", dbcontent );
     // if ( !dbcontent ) { console.log ( "Empty " ); return };
     let error = null;
     form.parse( req, function ( err, fields, files ) {
@@ -117,15 +109,8 @@ app.get ( "/forms/:id", async function ( req, res ) {
           }
         });
         let dbpath = path.join ( path.resolve( "." ), `forms/db.json` );
-        console.log ( "DB path: ", dbpath );
         error = saveForm ( req, res, dbpath, dbcontent, result );
-        // console.log ( "Server.js: writing DB result is ", error );
         if ( error ) break;
-        // console.log ( file );
-        console.log ( "path: ", files[file].path );
-        console.log ( "name: ", files[file].name );
-        console.log ( "size: ", files[file].size );
-        console.log ( "type: ", files[file].type );
       }
     });
   })

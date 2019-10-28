@@ -2,8 +2,6 @@ const writeDB = require( "./writeDB" );
 const getError = require ( "./getError" );
 
 function saveForm ( req, res, dbpath, dbcontent, result ) {
-    console.log ( "saveForm: ", req.method, req.params.id );
-    console.log ( "RESULT:\n", result );
     let error = null;
     req.method.toUpperCase() === "POST" ?
       dbcontent [ req.params.id ] ?
@@ -19,11 +17,7 @@ function saveForm ( req, res, dbpath, dbcontent, result ) {
   
     if ( error ) return res.json ( error );
     error = writeDB ( dbpath, dbcontent );
-    if ( error ) {
-      console.log ( "Error writing DB" );
-      return res.json ( error );
-    }
-    console.log ( "Writing DB: OK" );
+    if ( error ) return res.json ( error );
     return res.json ( dbcontent [ req.params.id ] );
 };
 
