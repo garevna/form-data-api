@@ -47,6 +47,9 @@ const resolve = response => {
 }
 
 const register = login => {
+    document.getElementById ( "form" ).style.display = "block";
+    document.getElementById ( "submit" ).style.display = "block";
+  
     const userName = document.getElementById ( "userName" );
     const userAge = document.getElementById ( "userAge" );
     const avatar = document.getElementById ( "avatar" );

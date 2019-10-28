@@ -21,8 +21,14 @@
     </header>
 
     <main>
+      <p id="logMessage">
+        Enter your login
+      </p>
       <input id="login" oninput="testLogin()" placeholder="login">
-      <form id="form">
+      <form id="form" style="display: none">
+        <h3>
+          Registration
+        </h3>
         <p>Name</p>
         <input id="userName" name="name" onchange="validateName()" placeholder="Name">
         <p>Age</p>
@@ -39,8 +45,9 @@
                name="avatar" 
                onchange="validateImage()"
         >
+        <img id="userPhoto" src="null">
       </form>
-      <button id="submit" onclick="submitForm(event)">Submit</button>
+      <button id="submit" onclick="submitForm(event)" style="display: none">Submit</button>
     </main>
 
 <!--     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
