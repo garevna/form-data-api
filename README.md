@@ -9,13 +9,9 @@ https://garevna-form-data.glitch.me/form/<id>
 **Sample**
 
 ~~~js
-let main = document.body.appendChild (
-    document.createElement ( "main" )
-)
+const main = document.body.appendChild(document.createElement('main'))
 
-let ready = () => validateName() && 
-                  validateAge() &&
-                  validateImage()
+const ready = () => validateName() &&  validateAge() && validateImage()
 
 main.innerHTML = `
   <form id="form">
