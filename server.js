@@ -29,65 +29,59 @@ app.options( "/*", function (req, res, next ) {
 })
 
 app.use( function(req, res, next) {
-  console.log ( req.originalUrl )
-  res.header( "Access-Control-Allow-Origin", req.headers.origin )
-  res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, OPTIONS, PUT, PATCH, DELETE, HEAD"
-  )
-  res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-  )
+  console.log(req.originalUrl)
+  res.header('Access-Control-Allow-Origin', req.headers.origin)
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE, HEAD')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
-});
-
-app.get("/", function(request, response) {
-  response.sendFile(__dirname + "/views/index.html")
 })
 
-app.get ( "/forms/all", async function ( req, res ) {
-    let { dbpath, dbcontent } = await readDB ( req, res )
-    res.json ( dbcontent )
-});
+app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/views/index.html')
+})
 
-app.get ( "/forms/:id", async function ( req, res ) {
+app.get('/forms/all', async function (req, res) {
+    const { dbpath, dbcontent } = await readDB(req, res)
+    res.json(dbcontent)
+})
 
-    let { dbpath, dbcontent } = await readDB ( req, res );
-    if ( !dbcontent [ req.params.id ] ) return res.json ( getError ( 404 ) )
+app.get('/forms/:id', async function (req, res) {
+  const { dbpath, dbcontent } = await readDB(req, res)
+  if (!dbcontent[req.params.id]) return res.json(getError(404))
 
-    let form = new FormData()
-    for ( let prop in dbcontent [ req.params.id ] ) {
-        if ( dbcontent [ req.params.id ][ prop ].path ) {
-          form.append ( prop, fs.createReadStream( dbcontent [ req.params.id ][ prop ].path ) )
-        } else form.append( prop, dbcontent [ req.params.id ][ prop ] )
-    }
+  const form = new FormData()
+  for (let prop in dbcontent[req.params.id]) {
+    if (dbcontent[req.params.id][prop].path) {
+      form.append(prop, fs.createReadStream(dbcontent[req.params.id][prop].path))
+    } else form.append(prop, dbcontent[req.params.id][prop])
+  }
     
-    res.setHeader( 'Content-Type', 'multipart/form-data; boundary=' + form.getBoundary() )
-    form.pipe(res)
-});
+  res.setHeader('Content-Type', 'multipart/form-data; boundary=' + form.getBoundary())
+  form.pipe(res)
+})
 
-[ "post", "put", "patch", "delete" ].map(
-  method => app[method] ( "/form/:id", async function ( req, res ) {
-    let form = new formidable.IncomingForm({
-        uploadDir: __dirname + '/uploads',
-        keepExtensions: true,
-        keepFileNames: true
+;['post', 'put', 'patch', 'delete']
+  .map(method => app[method]('/form/:id', async function (req, res) {
+    const form = new formidable.IncomingForm({
+      uploadDir: __dirname + '/uploads',
+      keepExtensions: true,
+      keepFileNames: true
     })
 
-    let { dbpath, dbcontent } = await readDB ( req, res )
+    const { dbpath, dbcontent } = await readDB(req, res)
     
     let error = null
-    form.parse( req, function ( err, fields, files ) {
-      let result = {}
-      if ( err ) {
-        console.log ( "Error: ", err.stack )
-        return res.status ( 500 ).send ( err.stack )
+
+    form.parse(req, function (err, fields, files) {
+      const result = {}
+      if (err) {
+        console.log('Error: ', err.stack)
+        return res.status(500).send(err.stack)
       }
       
-      Object.assign ( result, fields )
+      Object.assign(result, fields)
       
-      for ( let file in files ) {
+      for (const file in files) {
           // if ( files[file].type.indexOf ( "image" ) === -1 ) {
           //     fs.unlink( files[file].path, err => err ? 
           //               console.log( 'Error deleting file: ', err ) :
@@ -108,7 +102,7 @@ app.get ( "/forms/:id", async function ( req, res ) {
           //     message: `File ${files[file].name} is too large. Max available size 300Kb`
           //   })
           // }
-          Object.assign ( result, {
+          Object.assign(result, {
             [file]: {
               path: files[file].path,
               name: files[file].name,

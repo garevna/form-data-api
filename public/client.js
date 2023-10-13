@@ -43,7 +43,7 @@ async function getLogin () {
 
 // ==========================================================
 
-const addElemToBody = tagName => document.body.appendChild(document.createElement('img'))
+const addElemToBody = tagName => document.body.appendChild(document.createElement(tagName))
 
 const resolve = userLogin => {
   const dataURL = `https://garevna-form-data.glitch.me/forms/${userLogin}`
@@ -52,14 +52,11 @@ const resolve = userLogin => {
     const formData = await (await fetch(url)).formData()
     const user = {}
     formData
-      .forEach(prop => prop instanceof File
-        ? document.body.appendChild(document.createElement('img')).src = URL.createObjectURL(prop)
-        : document.body.appendChild(document.createElement('p')).innerText = prop
-        );
-    }
+      .forEach(prop => prop instanceof File ? addElemToBody('img').src = URL.createObjectURL(prop) : addElemToBody('p').innerText = prop)
+  }
 
-    getFormData ( dataURL );
-    document.getElementsByTagName ( "header" )[0].remove();
+  getFormData(dataURL)
+  document.getElementsByTagName('header')[0].remove()
 }
 
 const register = login => {
@@ -88,21 +85,21 @@ const register = login => {
           return;
         }
 
-        let formData = new FormData ( document.getElementById ( "form" ) );
+        const formData = new FormData(document.getElementById('form'))
 
-        fetch ( `https://garevna-form-data.glitch.me/form/${login}`, {
-            method: "POST",
-            body: formData
-        }).then ( response => {
-          registration.style.display = "none";
-          document.getElementsByTagName ( "header" )[0].remove();
-          resolve ( login );
-        });
+        fetch(`https://garevna-form-data.glitch.me/form/${login}`, {
+          method: 'POST',
+          body: formData
+        }).then(response => {
+          registration.style.display = 'none'
+          document.getElementsByTagName('header')[0].remove()
+          resolve(login)
+        })
     };
 }
 
 
-getLogin ().then ( resolve, register )
+getLogin().then(resolve, register)
 
 
 
