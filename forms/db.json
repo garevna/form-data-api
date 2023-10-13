@@ -173,42 +173,30 @@
       "type":"image/png"
     }
   },
-  "1580757369109":{
-    "name":"Dima",
-    "age":"20",
-    "avatar":{"path":"/app/uploads/upload_25bebc2857a4e0c92bf6d9f86b3e8d57.png","name":"uitschool.png","size":32612,"type":"image/png"}
-  },
-  "1580757728364":{
-    "name":"Dima1",
-    "age":"20",
-    "avatar":{"path":"/app/uploads/upload_699164a7dad6eaa09b690d01de175bf4.png","name":"uitschool.png","size":32612,"type":"image/png"}
-  },
-  "1580757714480":{
-    "name":"caban",
-    "age":"-2",
-    "avatar":{"path":"/app/uploads/upload_267827b53ca482628fbd5ebaeb8504a2.jpg","name":"photo_2019-07-04_11-54-36.jpg","size":9975,"type":"image/jpeg"}
-  },
-  "undefined":{
-    "name":"Dasha2",
-    "age":"21",
-    "avatar":{"path":"/app/uploads/upload_682afa9ee6c62a7af87be4eba3beaae5.jpg","name":"avatar_1.jpg","size":4674,"type":"image/jpeg"}
-  },
-  "1580757882969":{
-    "name":"POland",
-    "age":"4",
-    "avatar":{"path":"/app/uploads/upload_e1b12d2ead18518afa6f71c2a0fcf47b.jpg","name":"photo_2019-07-04_11-54-36.jpg","size":9975,"type":"image/jpeg"}
-  },
   "dima":{
     "name":"Dima2",
     "age":"20",
     "avatar":{"path":"/app/uploads/upload_b75a6c0db34e57d4447a61fe5cd8cbc4.png","name":"uitschool.png","size":32612,"type":"image/png"}
   },
-  "bandit":{
-    "name":"","age"
-    :"",
-    "avatar":{"path":"/app/uploads/upload_edf031aa904bd61114a8ed666c6177d9","name":"","size":0,"type":"application/octet-stream"}
+  "SOME":{
+    "user-name":"SOME",
+    "file":"C:\\fakepath\\219986.png",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_d28f024960a56c6d4e2ea9ba5bed8af0.png","name":"219986.png","size":22945,"type":"image/png"}
   },
-  "Yurii Donnykov":{
-    "name":"Yurii Donnikov",
-    "age":"13",
-    "avatar":{"path":"/app/uploads/upload_542ad85bf2a30abe8c86a6c87afd900d.jpg","name":"shining-circle-purple-lighting-isolated-dark-background_1441-2396.jpg","size":45994,"type":"image/jpeg"}},"user":{"user-name":"user","file":"C:\\fakepath\\219986.png","pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3","avatar":{"path":"/app/uploads/upload_25028dcf003daa29edf13474ff478fdd.png","name":"219986.png","size":22945,"type":"image/png"}},"SOME":{"user-name":"SOME","file":"C:\\fakepath\\219986.png","pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3","avatar":{"path":"/app/uploads/upload_d28f024960a56c6d4e2ea9ba5bed8af0.png","name":"219986.png","size":22945,"type":"image/png"}},"people":{"user-name":"people","pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3","avatar":{"path":"/app/uploads/upload_b174068ca26c9ffdc812e57fe768c83a.png","name":"219986.png","size":22945,"type":"image/png"}},"who":{"user-name":"who","pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3","avatar":{"path":"/app/uploads/upload_3cbaa577ea788b954c7d5fe77613e8ee.png","name":"219986.png","size":22945,"type":"image/png"}},"please":{"user-name":"please","pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3","avatar":{"path":"/app/uploads/upload_e53005b1b7f80bb45091ef61d91c3243.png","name":"219986.png","size":22945,"type":"image/png"}}}
+  "people":{
+    "user-name":"people",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_b174068ca26c9ffdc812e57fe768c83a.png","name":"219986.png","size":22945,"type":"image/png"}
+  },
+  "who":{
+    "user-name":"who",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_3cbaa577ea788b954c7d5fe77613e8ee.png","name":"219986.png","size":22945,"type":"image/png"}
+  },
+  "please":{
+    "user-name":"please",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_e53005b1b7f80bb45091ef61d91c3243.png","name":"219986.png","size":22945,"type":"image/png"}
+  }
+}

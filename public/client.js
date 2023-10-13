@@ -1,70 +1,60 @@
-const userName = document.getElementById ( "userName" );
-const userAge = document.getElementById ( "userAge" );
-const avatar = document.getElementById ( "avatar" );
-const message = document.getElementById ( "message" );
-const submit = document.getElementById ( "submit" );
-const registration = document.getElementById ( "registration" );
+const userName = document.getElementById('userName')
+const userAge = document.getElementById('userAge')
+const avatar = document.getElementById('avatar')
+const message = document.getElementById('message')
+const submit = document.getElementById('submit')
+const registration = document.getElementById('registration')
 
-let currentUser = null;
+let currentUser = null
 
-function getInput ( users ) {
+function getInput (users) {
+  const logins = Object.keys(users)
 
-    let logins = Object.keys ( users );
-
-    let userInput = document.getElementById ( "login" );
+  const userInput = document.getElementById('login')
     
-    userInput.oninput = event => {
-        let test = logins.filter (
-            login => login.indexOf ( event.target.value ) !== -1
-        ).length > 0;
-        
-        event.target.style.color = test ? "green" : "red";
-        event.target.title = test ? "..." : "There are no such user in DB";
-    };
+  userInput.oninput = event => {
+    const test = logins.filter(login => login.indexOf(event.target.value) !== -1).length > 0
+  
+    event.target.style.color = test ? 'green' : 'red'
+    event.target.title = test ? '...' : 'There are no such user in DB'
+  }
     
-    return new Promise (
-        ( resolve, reject ) => {
-            userInput.onchange = event => {
-                let userLogin = event.target.value;
-                let res = logins.find ( login => login === event.target.value );
+    return new Promise((resolve, reject) => {
+      userInput.onchange = event => {
+        const userLogin = event.target.value
+        const res = logins.find(login => login === event.target.value)
 
-                userInput.remove();
-              
-                console.log ( userLogin );
+        userInput.remove()
 
-                !res ? reject ( userLogin ) : resolve ( userLogin )
-            };
-        }
-    )
+        console.log(userLogin)
+
+        !res ? reject(userLogin) : resolve(userLogin)
+      }
+    })
 }
 
 // ======================= getLogin ========================= 
 
 async function getLogin () {
-   
-    let users = await (
-        await fetch ( "https://garevna-form-data.glitch.me/forms/all" )
-    ).json();
+  const users = await (await fetch('https://garevna-form-data.glitch.me/forms/all')).json()
 
-    return await getInput ( users )
+  return await getInput(users)
 }
 
 // ==========================================================
 
-const resolve = userLogin => {
-    let dataURL = `https://garevna-form-data.glitch.me/forms/${userLogin}`
+const addElemToBody = tagName => document.body.appendChild(document.createElement('img'))
 
-    async function getFormData ( url ) {
-        let formData = await ( await fetch ( url ) ).formData()
-        let user = {}
-        formData.forEach (
-            prop => prop instanceof File ? 
-                document.body.appendChild (
-                    document.createElement ( "img" )
-                ).src = URL.createObjectURL ( prop ) :
-                document.body.appendChild (
-                    document.createElement ( "p" )
-                ).innerText = prop
+const resolve = userLogin => {
+  const dataURL = `https://garevna-form-data.glitch.me/forms/${userLogin}`
+
+  async function getFormData (url) {
+    const formData = await (await fetch(url)).formData()
+    const user = {}
+    formData
+      .forEach(prop => prop instanceof File
+        ? document.body.appendChild(document.createElement('img')).src = URL.createObjectURL(prop)
+        : document.body.appendChild(document.createElement('p')).innerText = prop
         );
     }
 
