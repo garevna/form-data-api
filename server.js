@@ -50,8 +50,12 @@ app.get('/forms/:id', async function (req, res) {
   if (!dbcontent[req.params.id]) return res.json(getError(404))
 
   const form = new FormData()
-  for (let prop in dbcontent[req.params.id]) {
+  for (const prop in dbcontent[req.params.id]) {
+    console.log(prop)
+    console.log(dbcontent[req.params.id][prop])
     if (dbcontent[req.params.id][prop].path) {
+      // const fileReader = new FileReader()
+
       form.append(prop, fs.createReadStream(dbcontent[req.params.id][prop].path))
     } else form.append(prop, dbcontent[req.params.id][prop])
   }
@@ -111,9 +115,9 @@ app.get('/forms/:id', async function (req, res) {
             }
           })
       }
-      let dbpath = path.join ( path.resolve( "." ), `forms/db.json` )
-      error = saveForm ( req, res, dbpath, dbcontent, result )
-      if ( error ) return null;
+      const dbpath = path.join(path.resolve('.'), `forms/db.json`)
+      error = saveForm(req, res, dbpath, dbcontent, result)
+      if (error) return null
     })
   })
 )
@@ -137,6 +141,6 @@ app.get('/forms/:id', async function (req, res) {
 
 // =============================================================================
 
-const listener = app.listen(process.env.PORT, function() {
-  console.log("Your app is listening on port " + listener.address().port)
+const listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port)
 })
