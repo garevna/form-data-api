@@ -1,0 +1,176 @@
+{
+  "1234": {
+    "name":"Gena",
+    "pass-hash":"8ab0f9ffc4ee23807bb10c204af73bef7ad0ca5ad685f401f42e9e6269e3f13a",
+    "avatar":{
+      "path":"/app/uploads/upload_b6dcfa7df61eb0a0d019259b23e0cb56.png",
+      "name":"man.png",
+      "size":6288,
+      "type":"image/png"
+    }
+  },
+  "frodo": {
+    "name":"Frederic",
+    "avatar": {
+      "path":"/app/uploads/upload_9b1c98684d25c4f7c88640d7117434a1.jpg",
+      "name":"frodo.jpg",
+      "size":15068,
+      "type":"image/jpeg"
+    }
+  },
+  "begemot": {
+    "name":"Gregory",
+    "avatar": {
+      "path":"/app/uploads/upload_25bebc2857a4e0c92bf6d9f86b3e8d57.png",
+      "name":"uitschool.jpg",
+      "size":21490,
+      "type":"image/jpeg"
+    }
+  },
+  "goblin": {
+    "name":"Jack",
+    "avatar": {
+      "path":"/app/uploads/upload_257ec1c28de031c688351fae9e819f36.png",
+      "name":"js-developer.png",
+      "size":14082,
+      "type":"image/png"
+    }
+  },
+  "Jake": {
+    "name":"Jake",
+    "avatar": {
+      "path":"/app/uploads/upload_61b5e27e3be7499faa3c8c0ed55f9f98.png",
+      "name":"ico.png",
+      "size":7877,
+      "type":"image/png"
+    }
+  },
+  "pupkin": {
+    "name":"Vasiliy",
+    "avatar": {
+      "path":"/app/uploads/upload_338af44dd25338a69dc7943f42a7b187.jpg",
+      "name":"watch4.jpg",
+      "size":73391,
+      "type":"image/jpeg"
+    }
+  },
+  "Danil": {
+    "name":"Danil",
+    "avatar": {
+      "path":"/app/uploads/upload_5d6620ef63372b956f4b7ca8c54e02d4.jpg",
+      "name":"EscherichiaColi_NIAID.jpg",
+      "size":22461,
+      "type":"image/jpeg"
+    }
+  },
+  "Petrovich": {
+    "name":"Petrovich",
+    "avatar": {
+      "path":"/app/uploads/upload_5a17e0d7fe14491a8a3b838381878a68.jpg",
+      "name":"watch8.jpg",
+      "size":43421,
+      "type":"image/jpeg"
+    }
+  },
+  "Ecoli": {
+    "name":"Ecoli",
+    "avatar": {
+      "path":"/app/uploads/upload_b97c389689fb448c4d7dc2ffd81bed92.jpg",
+      "name":"EscherichiaColi_NIAID.jpg",
+      "size":22461,
+      "type":"image/jpeg"
+    }
+  },
+  "Lolo": {
+    "name":"Lolo",
+    "avatar": {
+      "path":"/app/uploads/upload_01c67e345aa4060aebc5fbdb97f6f7b7.png",
+      "name":"football_item1.png",
+      "size":5336,
+      "type":"image/png"
+    }
+  },
+  "flower": {
+    "name":"flower",
+    "avatar": {
+      "path":"/app/uploads/upload_d725cb1538e40257e0f28315664503d4.png",
+      "name":"ico.png",
+      "size":7877,
+      "type":"image/png"
+    }
+  },
+  "Igor": {
+    "name":"Igor",
+    "email":"garic19916@gmail.com",
+    "avatar": {
+      "path":"/app/uploads/upload_860b588d3d4086b9ebccf78ae6962fd8.jpg",
+      "name":"img001.jpg",
+      "size":25705,
+      "type":"image/jpeg"
+    }
+  },
+  "Aigul": {
+    "name":"Aigul",
+    "avatar": {
+      "path":"/app/uploads/upload_b6dcfa7df61eb0a0d019259b23e0cb56.png",
+      "name":"User_Avatar-31-512.png",
+      "size":29544,
+      "type":"image/png"
+    }
+  },
+  "hero":{
+    "name":"Mort",
+    "avatar": {
+      "path":"/app/uploads/upload_fd482bedf04adf3507a36d1456016726.png",
+      "name":"json-placeholder-logo.png",
+      "size":199,
+      "type":"image/png"
+    }
+  },
+  "Tema": {
+    "name":"Tema",
+    "job":"JS",
+    "speciality":"Web developer",
+    "avatar": {
+      "path":"/app/uploads/upload_bd4007ce8a8c7b375ec8df67b648ae26.jpg",
+      "name":"EscherichiaColi_NIAID.jpg",
+      "size":22461,
+      "type":"image/jpeg"
+    }
+  },
+  "Vovan": {
+    "name":"Vovan",
+    "hobby":"football",
+    "speciality":"worker",
+    "avatar": {
+      "path":"/app/uploads/upload_fa6e95f0a7c1c05df249d79631546e21.png",
+      "name":"reload.png",
+      "size":5364,
+      "type":"image/png"
+    }
+  },
+  "dima":{
+    "name":"Dima",
+    "avatar":{"path":"/app/uploads/upload_b75a6c0db34e57d4447a61fe5cd8cbc4.png","name":"uitschool.png","size":32612,"type":"image/png"}
+  },
+  "any":{
+    "name":"Bruce",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_d28f024960a56c6d4e2ea9ba5bed8af0.png","name":"219986.png","size":22945,"type":"image/png"}
+  },
+  "people":{
+    "name":"Fantasy",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_b174068ca26c9ffdc812e57fe768c83a.png","name":"219986.png","size":22945,"type":"image/png"}
+  },
+  "manfred":{
+    "name":"Bill",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_3cbaa577ea788b954c7d5fe77613e8ee.png","name":"219986.png","size":22945,"type":"image/png"}
+  },
+  "ctrl":{
+    "name":"Control system",
+    "pass-hash":"134563d4e440f0e418b0f382f23a2cf301af6d7f648ccfae9895018345d779a3",
+    "avatar":{"path":"/app/uploads/upload_e53005b1b7f80bb45091ef61d91c3243.png","name":"219986.png","size":22945,"type":"image/png"}
+  }
+}

@@ -1,29 +1,33 @@
 {
-  "name": "garevna-streams",
-  "version": "0.0.1",
-  "description": "A simple Node app built on Express",
+  "name": "garevna-form-data-api",
+  "version": "1.1.0",
+  "description": "A simple API for testing client-side CRUD methods with media type multipart/form-data",
   "main": "server.js",
+  "module": {
+    "type": "module"
+  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "formidable": "^1.2.1",
-    "async": "^3.1.0",
-    "promise": "^8.0.3",
-    "form-data": "^2.5.1"
+    "async": "^3.2.4",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "form-data": "^2.5.1",
+    "formidable": "^1.2.6",
+    "promise": "^8.3.0"
   },
   "engines": {
-    "node": "8.x"
+    "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/garevna/edit/#!/garevna-streams"
+    "url": "https://dc8bc577-65df-4e86-8989-403d3cd8dfea@api.glitch.com/git/garevna-form-data"
   },
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
     "express",
+    "form-data",
     "streams",
     "readablestream",
     "writablestream",

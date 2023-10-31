@@ -3,48 +3,59 @@
   <head>
     <title>Streams</title>
     <meta name="description" content="A cool thing made with Glitch">
-    <link id="favicon" rel="icon" href="https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2Fdemo.png" type="image/x-icon">
+    <!-- <link id="favicon" rel="icon" href="https://cdn.glitch.com/52ccd94a-ef5a-4ac4-b91a-4b8fa19be956%2Fdemo.png" type="image/x-icon"> -->
+    <link id="favicon" rel="icon" href="/images/logo.png" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/style.css">
-    
-    <script src="/client.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <img src="/assets/cat.gif" width="30">
-      <small id="logMessage"> Sign in</small>
-      <input id="login" placeholder="login">
-    </header>
 
+    <script src="/client-side/test-login.js"></script>
+    <script src="/client-side/get-users.js"></script>
+    <script src="/client-side/set-login-callbacks.js"></script>
+    <script src="/client-side/show-user-data.js"></script>
+    <script src="/client-side/validate-image.js"></script>
+    <script src="/client-side/save.js"></script>
+  </head>
+
+  <body>
     <main>
-      <section id="registration" style="display: none">
-          <h4>Registration</h4>
-          <p id="message" style="color: #f50"></p>
+      <section>
+          <h4 id="form-title">User details</h4>
           <form id="form">
+            <p id="message" style="color: #f50; font-size: 11px; text-align: right">&nbsp;</p>
+            <p>Login</p>
+            <input
+              id="user-login"
+              placeholder="Login"
+            >
             <p>Name</p>
-            <input id="userName" name="name" placeholder="Name">
-            <p>Age</p>
-            <input type="number"
-                   id="userAge" 
-                   name="age"
-                   placeholder="Age"
-            >
-            <p>Your Photo</p>
-            <input type="file" 
-                   id="avatar" 
-                   name="avatar" 
-            >
-            <img id="userPhoto" src="https://forexi.ru/wp-content/uploads/2019/02/teacher1.png" width="70">
+            <input
+              id="user-name"
+              name="name"
+              placeholder="User name"
+            />
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              style="display: none"
+            />
+            <label for="avatar">
+              <p>Avatar</p>
+              <img
+                id="user-photo"
+                src="/images/cat.png"
+                width="70"
+              />
+            </label>
           </form>
           <button id="submit">Submit</button>
       </section>
     </main>
 
-<!--     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
- -->
+    <!-- <script src="/client-side/settings.js"></script> -->
+    <script src="/client.js"></script>
   </body>
 </html>
