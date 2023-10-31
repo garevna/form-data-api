@@ -1,20 +1,30 @@
-# FormData API
+# API
+
+### Description
+
+This API is intended for training purposes as a complement to the project
+
+[![](https://cdn.glitch.com/a4e0a9fd-ea7b-47cf-b52a-48fd6359c559%2Fjs-ico.png)](https://js-lessons.glitch.me/)
+
+The API serves requests with data in **multipart/form-data** format
+
+Supported http-methods: _GET_, _POST_, _PUT_, _PATCH_, _DELETE_
 
 ### Start
 
 ```console
-node server
+$ node server
 ```
 
 ### api host
 
-#### localhost
+##### localhost
 
 ```js
 const api = 'http://localhost:3000'
 ```
 
-#### remote
+##### remote
 
 ```js
 const api = 'https://garevna-form-data.glitch.me'
