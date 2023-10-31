@@ -1,89 +1,87 @@
-# FormData
+# FormData API
 
-## endpoint
+### Start
 
-~~~console
-https://garevna-form-data.glitch.me/form/<id>
-~~~
+```console
+node server
+```
 
-**Sample**
+### api host
 
-~~~js
-const main = document.body.appendChild(document.createElement('main'))
+#### localhost
 
-const ready = () => validateName() &&  validateAge() && validateImage()
+```js
+const api = 'http://localhost:3000'
+```
 
-main.innerHTML = `
-  <form id="form">
-    <input
-      id="userName"
-      name="name"
-      onchange="validateName()"
-    />
-    <input
-      type="number"
-      id="userAge" 
-      name="age" 
-      onchange="validateAge()"
-    />
-    <input
-      type="file" 
-      id="avatar" 
-      name="avatar" 
-      onchange="validateImage()"
-    />
-  </form>
+#### remote
 
-  <button id="submit" onclick="submitForm(event)">
-    Submit
-  </button>
-`
+```js
+const api = 'https://garevna-form-data.glitch.me'
+```
 
-const validateName = () => userName.value.length > 1
-  ? 'OK'
-  : console.warn('Invalide name')
+### endpoints
 
-const validateAge = () => userAge.value > 5 && userAge.value < 120
-  ? 'OK'
-  : console.warn('Invalide age')
+```js
+/* GET: */
 
-const validateImage = () => avatar.files[0].type.indexOf('image') === 0
-  ? avatar.files[0].size < 100000
-    ? 'OK'
-    : console.warn('File is too large')
-  : console.warn('It\'s not an image file')
+${api}/forms/all
 
-const submitForm = event => {
-  if (!ready()) return console.warn('Form not ready yet')
+${api}/forms/${userLogin}
 
-  const formData = new FormData(form)
+/* POST, PUT, PATCH, DELETE: */
 
-  fetch('https://garevna-form-data.glitch.me/form/frodo', {
-    method: 'POST',
+${api}/form/${userLogin}
+```
+
+### Examples
+
+##### GET all users:
+```js
+fetch(`${api}/forms/all`)
+  .then(response => response.status === 200 ? response.json() : {})
+  .then(users => console.log(users))
+```
+
+##### GET user by login:
+
+```js
+const addElem = (tagName) => document.body
+  .appendChild(document.createElement(tagName))
+
+async function getFormData (login) {
+  const formData = await (await fetch(`${api}/forms/${login}`)).formData()
+
+  formData
+    .forEach(prop => prop instanceof File ? addElem('img').src = URL.createObjectURL(prop) : addElem('p').innerText = prop)
+}
+
+getFormData('frodo')
+```
+
+#### POST, PUT, PATCH
+
+```js
+const method = 'POST' /* ('PUT', 'PATCH') */
+
+async function updateUser (login, formData) {
+  const response = await fetch(`${api}/form/${login}`, {
+    method,
     body: formData
-  }).then(response => console.log(response))
+  })
+
+  console.log(response.status)
 }
-~~~
+```
 
-Receive data from server:
+#### DELETE
 
-~~~js
-const dataURL = 'https://garevna-form-data.glitch.me/forms/frodo'
+```js
+async function deleteUser (login) {
+  const response = await fetch(`${api}/form/${login}`, {
+    method: 'DELETE'
+  })
 
-async function getFormData (url) {
-  const formData = await (await fetch(url)).formData()
-
-  const user = {}
-
-  formData.forEach(prop => prop instanceof File
-    ? document.body
-      .appendChild(document.createElement('img'))
-      .src = URL.createObjectURL(prop)
-    : document.body
-      .appendChild(document.createElement('p'))
-      .innerText = prop
-    )
+  console.log(response.status)
 }
-
-getFormData(dataURL)
-~~~
+```
