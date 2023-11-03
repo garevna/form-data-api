@@ -2,7 +2,7 @@
 
 ### Description
 
-This API is intended for training purposes as a complement to the project
+This API is intended for training purposes as a complement to the project:
 
 [![](https://cdn.glitch.com/a4e0a9fd-ea7b-47cf-b52a-48fd6359c559%2Fjs-ico.png)](https://js-lessons.glitch.me/)
 

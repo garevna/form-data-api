@@ -1,5 +1,6 @@
-const [login, userName, userPhoto, avatar, message, submit, form, formTitle] = [
-  "user-login",
+const [login, changed, userName, userPhoto, avatar, message, submit, form, formTitle] = [
+  'user-login',
+  'user-login-changed',
   'user-name',
   'user-photo',
   'avatar',
@@ -11,7 +12,11 @@ const [login, userName, userPhoto, avatar, message, submit, form, formTitle] = [
 
 Object.assign(form.style, { display: 'none' })
 
-window[Symbol.for('elements')] = { login, userName, userPhoto, avatar, message, submit, form, formTitle }
+window[Symbol.for('elements')] = { login, changed, userName, userPhoto, avatar, message, submit, form, formTitle }
+
+console.log(window[Symbol.for('elements')])
+
+;[userName, userPhoto, submit].forEach(elem => Object.assign(elem, { disabled: true }))
 
 window[Symbol.for('api-url')] = location.origin
 

@@ -1,5 +1,5 @@
 function setLoginCallbacks () {
-  const { formTitle, message, login, submit } = window[Symbol.for('elements')]
+  const { formTitle, message, login, changed, submit } = window[Symbol.for('elements')]
 
   const callback = event => {
     const test = testLogin(event.target.value)
@@ -20,8 +20,13 @@ function setLoginCallbacks () {
 
   login.oninput = callback
 
-  login.onchange = event => {
-    const login = callback(event)
-    showUserData(login)
+  changed.onclick = event => {
+    ;[userName, userPhoto, submit].forEach(elem => Object.assign(elem, { disabled: !testLogin(login.value) }))
+    showUserData(login.value)
   }
+
+  // login.onchange = event => {
+  //   const login = callback(event)
+  //   showUserData(login)
+  // }
 }

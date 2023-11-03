@@ -21,15 +21,23 @@
 
   <body>
     <main>
-      <section>
+      <section class="registration-form">
           <h4 id="form-title">User details</h4>
           <form id="form">
             <p id="message" style="color: #f50; font-size: 11px; text-align: right">&nbsp;</p>
-            <p>Login</p>
-            <input
-              id="user-login"
-              placeholder="Login"
-            >
+            <div class="login-element">
+              <!-- <span>Login</span> -->
+              <input
+                id="user-login"
+                placeholder="Login"
+                style:
+              />
+              <img
+                src="/images/button-pointer.svg"
+                width="36"
+                id="user-login-changed"
+              />
+            </div>
             <p>Name</p>
             <input
               id="user-name"
@@ -51,7 +59,9 @@
               />
             </label>
           </form>
-          <button id="submit">Submit</button>
+          <div style="text-align: center; margin-top: 32px">
+            <button id="submit">Submit</button>
+          </div>
       </section>
     </main>
 
